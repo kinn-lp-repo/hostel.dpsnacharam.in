@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #155b2e;
+}
+
+@layer base {
+  body {
+    @apply text-black;
+    font-family: 'Gilroy', 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'system-ui', sans-serif;
+  }
+}
+
+@layer utilities {
+  .shadow-primary-rotated {
+    position: relative;
+    overflow: visible !important;
+  }
+  
+  .shadow-primary-rotated::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: -12px;
+    bottom: -12px;
+    background: rgba(21, 91, 46, 0.4);
+    border-radius: inherit;
+    z-index: -1;
+    transform: rotate(-4deg) translate(10px, 10px);
+    filter: blur(15px);
+    pointer-events: none;
+  }
+  
+  .shadow-primary-rotated::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: -8px;
+    right: 8px;
+    bottom: 8px;
+    background: rgba(21, 91, 46, 0.35);
+    border-radius: inherit;
+    z-index: -1;
+    transform: rotate(3deg) translate(-8px, 8px);
+    filter: blur(12px);
+    pointer-events: none;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.6s ease-out;
+  }
+
+  @keyframes scroll-row-1 {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes scroll-row-2 {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scroll-row-3 {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-33.333%);
+    }
+  }
+
+  .animate-scroll-row-1 {
+    animation: scroll-row-1 25s linear infinite;
+  }
+
+  .animate-scroll-row-2 {
+    animation: scroll-row-2 25s linear infinite;
+  }
+
+  .animate-scroll-row-3 {
+    animation: scroll-row-3 25s linear infinite;
+  }
+
+  @media (min-width: 768px) {
+    .animate-scroll-row-1 {
+      animation: scroll-row-1 40s linear infinite;
+    }
+
+    .animate-scroll-row-2 {
+      animation: scroll-row-2 40s linear infinite;
+    }
+
+    .animate-scroll-row-3 {
+      animation: scroll-row-3 40s linear infinite;
+    }
+  }
+}
+
