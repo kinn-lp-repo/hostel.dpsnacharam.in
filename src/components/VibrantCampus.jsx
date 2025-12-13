@@ -1,21 +1,38 @@
 import { useMemo } from 'react'
 
-// Array of hostel images (outside component to avoid recreation)
-// Note: Some files are .JPG (uppercase) - matching actual file extensions
-const hostelImages = [
-  '/hostel/01.jpg',
-  '/hostel/02.jpg',
-  '/hostel/03.jpg',
-  '/hostel/04.jpg',
-  '/hostel/05.jpg',
-  '/hostel/06.jpg',
-  '/hostel/07.jpg',
-  '/hostel/08.jpg',
-  '/hostel/09.JPG',
-  '/hostel/10.JPG',
-  '/hostel/11.JPG',
-  '/hostel/12.JPG',
-  '/hostel/13.jpg',
+// Facilities images
+const facilitiesImages = [
+  '/hostel/campus.webp',
+  '/hostel/01.webp',
+  '/hostel/02.webp',
+  '/hostel/computerlab.webp',
+  '/hostel/03.webp',
+  '/hostel/04.webp',
+  '/hostel/05.webp',
+  '/hostel/06.webp',
+  '/hostel/08.webp',
+  '/hostel/13.webp',
+  '/hostel/bedroom.webp',
+  '/hostel/chef.webp',
+  '/hostel/food.webp',
+  '/hostel/mess_students.webp',
+  '/hostel/hall.webp',
+  '/hostel/hostel.webp',
+  '/hostel/lockers.webp',
+  '/hostel/study-hours.webp'
+]
+
+// Sports images
+const sportsImages = [
+  '/hostel/cricket.webp',
+  '/hostel/cycle.webp',
+  '/hostel/football.webp',
+  '/hostel/gym.webp',
+  '/hostel/gymm.webp',
+  '/hostel/Gymnasium.webp',
+  '/hostel/swimming.webp',
+  '/hostel/tabletennisboard.webp',
+  '/hostel/yogaroom.webp'
 ]
 
 const VibrantCampus = () => {
@@ -30,9 +47,9 @@ const VibrantCampus = () => {
   }
 
   // Function to get shuffled images for a row, ensuring variety
-  const getShuffledImages = (count) => {
+  const getShuffledImages = (array, count) => {
     // Shuffle all images first to get a random order
-    const shuffled = shuffleArray(hostelImages)
+    const shuffled = shuffleArray(array)
     
     // Build array by cycling through shuffled images
     // This ensures all images are used before any repeats
@@ -46,12 +63,10 @@ const VibrantCampus = () => {
     return images
   }
 
-  // Create 3 rows with different numbers of images for varied scrolling speeds
-  // All complete in same time (40s) but cover different distances = different speeds
+  // Create 2 rows - Facilities and Sports
   // Each row uses shuffled images to ensure variety (memoized to prevent re-rendering)
-  const row1Images = useMemo(() => getShuffledImages(10), []) // Fastest scroll (covers more distance)
-  const row2Images = useMemo(() => getShuffledImages(9), [])  // Medium scroll
-  const row3Images = useMemo(() => getShuffledImages(9), [])  // Slower scroll (covers less distance)
+  const facilitiesRowImages = useMemo(() => getShuffledImages(facilitiesImages, 10), []) // Facilities row
+  const sportsRowImages = useMemo(() => getShuffledImages(sportsImages, 10), []) // Sports row
 
   return (
     <section id="campus" className="py-12 md:py-16 lg:py-24 bg-white overflow-hidden">
@@ -69,18 +84,18 @@ const VibrantCampus = () => {
 
       {/* Scrolling Image Rows - Full Width */}
       <div className="space-y-4 md:space-y-6 lg:space-y-8 mt-6 md:mt-8">
-        {/* Row 1 - Fastest scroll (covers more distance in same time) */}
+        {/* Row 1 - Facilities */}
         <div className="overflow-hidden">
           <div className="flex animate-scroll-row-1 gap-3 md:gap-4">
-            {/* Double duplicate - scrolls full width for fastest speed */}
-            {[...row1Images, ...row1Images].map((img, idx) => (
+            {/* Double duplicate for seamless scrolling */}
+            {[...facilitiesRowImages, ...facilitiesRowImages].map((img, idx) => (
               <div
-                key={`row1-${idx}`}
+                key={`facilities-${idx}`}
                 className="flex-shrink-0 w-[220px] sm:w-[260px] md:w-[300px] lg:w-[320px] h-[160px] sm:h-[180px] md:h-[220px] lg:h-[240px] rounded-lg md:rounded-xl overflow-hidden shadow-lg transition-all duration-300 md:hover:scale-105 md:hover:shadow-xl md:hover:brightness-110 cursor-pointer"
               >
                 <img
                   src={img.url}
-                  alt={`Campus activity ${img.id}`}
+                  alt={`Campus facility ${img.id}`}
                   className="w-full h-full object-cover transition-transform duration-300"
                   onError={(e) => {
                     // Fallback if image fails to load
@@ -92,41 +107,18 @@ const VibrantCampus = () => {
           </div>
         </div>
 
-        {/* Row 2 - Medium scroll (reverse direction) */}
+        {/* Row 2 - Sports (reverse direction) */}
         <div className="overflow-hidden">
           <div className="flex animate-scroll-row-2 gap-3 md:gap-4">
-            {/* Double duplicate for medium scroll distance */}
-            {[...row2Images, ...row2Images].map((img, idx) => (
+            {/* Double duplicate for seamless scrolling */}
+            {[...sportsRowImages, ...sportsRowImages].map((img, idx) => (
               <div
-                key={`row2-${idx}`}
+                key={`sports-${idx}`}
                 className="flex-shrink-0 w-[220px] sm:w-[260px] md:w-[300px] lg:w-[320px] h-[160px] sm:h-[180px] md:h-[220px] lg:h-[240px] rounded-lg md:rounded-xl overflow-hidden shadow-lg transition-all duration-300 md:hover:scale-105 md:hover:shadow-xl md:hover:brightness-110 cursor-pointer"
               >
                 <img
                   src={img.url}
-                  alt={`Campus activity ${img.id}`}
-                  className="w-full h-full object-cover transition-transform duration-300"
-                  onError={(e) => {
-                    // Fallback if image fails to load
-                    e.target.style.display = 'none'
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Row 3 - Slower scroll (covers less distance in same time) */}
-        <div className="overflow-hidden">
-          <div className="flex animate-scroll-row-3 gap-3 md:gap-4">
-            {/* Triple duplicate - scrolls 1/3 width for slower speed */}
-            {[...row3Images, ...row3Images, ...row3Images].map((img, idx) => (
-              <div
-                key={`row3-${idx}`}
-                className="flex-shrink-0 w-[220px] sm:w-[260px] md:w-[300px] lg:w-[320px] h-[160px] sm:h-[180px] md:h-[220px] lg:h-[240px] rounded-lg md:rounded-xl overflow-hidden shadow-lg transition-all duration-300 md:hover:scale-105 md:hover:shadow-xl md:hover:brightness-110 cursor-pointer"
-              >
-                <img
-                  src={img.url}
-                  alt={`Campus activity ${img.id}`}
+                  alt={`Sports activity ${img.id}`}
                   className="w-full h-full object-cover transition-transform duration-300"
                   onError={(e) => {
                     // Fallback if image fails to load

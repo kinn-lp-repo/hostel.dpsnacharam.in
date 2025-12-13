@@ -30,6 +30,7 @@ const VirtualExperience = () => {
           <div className="text-center mb-10 max-w-3xl mx-auto">
             <p className="text-base md:text-lg text-gray-700 leading-relaxed">
               Take a complete walkthrough of our campus and see all the world-class facilities that make our school extraordinary. Get your first understanding of the learning environment where your child will thrive and grow.
+              <br /><span className="text-primary font-semibold block mt-2">Note: Hostel facilities are available for <span className="font-bold">boys only</span>.</span>
             </p>
           </div>
 
@@ -69,7 +70,7 @@ const VirtualExperience = () => {
                 Independent
               </h3>
               <p className="text-sm text-gray-600">
-                Boarding for Boys & Girls
+                Boarding for Boys <span className="text-xs text-red-600 font-semibold">(Boys Only)</span>
               </p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
@@ -94,7 +95,8 @@ const VirtualExperience = () => {
               </svg>
             </button>
             <p className="text-sm text-gray-500">
-              Experience digitally first, then visit us in person
+              Experience digitally first, then visit us in person<br/>
+              <span className="text-primary font-semibold">Hostel admissions are for boys only.</span>
             </p>
           </div>
         </div>

@@ -15,16 +15,14 @@ function App() {
       <main>
         <Hero />
         <ExploreOurSchool />
-        <VirtualExperience />
-        <GradeSelection />
-        <SuccessStories />
-        <CareerPreparation />
         <VibrantCampus />
+        <CareerPreparation />
+        {/* <GradeSelection /> */}
+        <VirtualExperience />
+        {/* <SuccessStories /> */}
       </main>
       <Footer />
     </div>
   )
 }
-
 export default App
-

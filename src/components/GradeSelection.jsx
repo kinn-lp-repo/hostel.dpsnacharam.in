@@ -3,7 +3,7 @@ const GradeSelection = () => {
     {
       title: 'Upper Primary',
       gradeRange: 'CLASS V - VI',
-      description: 'Build strong foundations with play-based learning and essential skills. Watch your child discover the joy of learning in a nurturing environment.',
+      description: 'Play-based learning in a nurturing hostel environment with 24/7 support.',
       image: 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&h=600&fit=crop',
       icon: (
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -14,7 +14,7 @@ const GradeSelection = () => {
     {
       title: 'Middle School',
       gradeRange: 'CLASS VII - VIII',
-      description: 'Shape your child\'s critical thinking and academic foundation. Our proven curriculum builds confidence and prepares students for advanced learning.',
+      description: 'Critical thinking and academic foundation with dedicated study hours and mentorship.',
       image: 'https://images.unsplash.com/photo-1529390079861-591de354faf5?w=800&h=600&fit=crop',
       icon: (
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -26,7 +26,7 @@ const GradeSelection = () => {
     {
       title: 'Secondary',
       gradeRange: 'CLASS IX - X',
-      description: 'Unlock your teen\'s potential with specialized programs and career exploration. Watch them develop independence and leadership skills.',
+      description: 'Career exploration, leadership development, and board exam preparation.',
       image: 'https://images.unsplash.com/photo-1522202176988-6627c2bfdab0?w=800&h=600&fit=crop',
       icon: (
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -37,7 +37,7 @@ const GradeSelection = () => {
     {
       title: 'Senior Secondary',
       gradeRange: 'CLASS XI - XII',
-      description: 'Secure your child\'s future with college-prep excellence. Our graduates gain admission to top universities and launch successful careers.',
+      description: 'College-prep with competitive exam and board preparation for top universities.',
       image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop',
       icon: (
         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -52,10 +52,10 @@ const GradeSelection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">
-            Which Grade Is Your Child Applying For?
+            Which Grade Is Your Son Applying For?
           </h2>
           <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto mb-4">
-            Every year matters. See exactly what your child will experience, learn, and achieve at each grade level.
+            Hostel admissions are open for boys from Grade 5 to Grade 12. See exactly what your son will experience, learn, and achieve at each grade level in our residential program.
           </p>
           <p className="text-base text-primary max-w-2xl mx-auto font-semibold">
             Click below to explore curriculum, facilities, and success outcomes →
@@ -98,7 +98,7 @@ const GradeSelection = () => {
           {/* Footer Call to Action */}
           <div className="text-center">
             <p className="text-xl text-gray-700 mb-6">
-              Still unsure which grade level is right for your child?
+              Still unsure which grade level is right for your son? (Hostel available for Grades 5-12, Boys only)
             </p>
             <button className="bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-opacity-90 transition-colors shadow-lg flex items-center gap-2 mx-auto">
               Schedule a Personal Consultation

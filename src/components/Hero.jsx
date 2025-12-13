@@ -193,20 +193,20 @@ const Hero = () => {
             {/* Green Tag */}
             <div className="mb-4">
               <span className="inline-block text-primary px-4 py-1.5 rounded-full text-sm font-medium border border-primary">
-                Shaping Tomorrow's Leaders Today
+                Comfort. Community. Confidence.
               </span>
             </div>
 
             {/* Main Heading */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-tight">
-              <span className="text-black">India's First</span>
+              <span className="text-black">India's No. 1</span>
               <br />
-              <span className="text-primary">Career-Oriented Boarding School in Hyderabad</span>
+              <span className="text-primary">Career-Oriented Boys’ Boarding School</span>
             </h1>
 
             {/* Description */}
             <p className="text-gray-600 text-base md:text-lg mb-8 leading-relaxed">
-              At Delhi Public School Nacharam, we don't just educate—we transform. Our holistic CBSE approach combines academic excellence with character building, discipline, and real-world career preparation.
+              A modern boys’ residential campus in Nacharam, Hyderabad offering a focused, structured, and globally aligned living experience.
             </p>
 
             {/* Schedule a Visit Button */}
@@ -214,37 +214,37 @@ const Hero = () => {
               onClick={() => scrollToSection('next-step')}
               className="bg-primary text-white px-6 py-3 rounded-lg text-base font-semibold hover:bg-opacity-90 transition-colors mb-10 flex items-center gap-2"
             >
-              Schedule a Visit
+              Explore the Hostel
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
 
             {/* Key Features Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-12">
               <div className="bg-gray-50 border-1 border-primary rounded-xl p-4">
-                <h3 className="text-2xl md:text-3xl font-bold text-primary mb-0.5">4-12</h3>
+                <h3 className="text-2xl md:text-3xl font-bold text-primary mb-0.5">V - XII</h3>
                 <p className="text-sm font-semibold text-primary mb-1">Grades</p>
-                <p className="text-xs text-gray-600">Comprehensive Education</p>
+            
               </div>
               <div className="bg-gray-50 border-1 border-primary rounded-xl p-4">
                 <h3 className="text-2xl md:text-3xl font-bold text-primary mb-0.5">CBSE & CIE</h3>
                 <p className="text-sm font-semibold text-primary mb-1">Affiliated</p>
-                <p className="text-xs text-gray-600">National & International Curriculum</p>
+               
               </div>
               <div className="bg-gray-50 border-1 border-primary rounded-xl p-4">
-                <h3 className="text-2xl md:text-3xl font-bold text-primary mb-0.5">100%</h3>
-                <p className="text-sm font-semibold text-primary mb-1">Vegetarian</p>
-                <p className="text-xs text-gray-600">Nutritious Meals</p>
+                <h3 className="text-2xl md:text-3xl font-bold text-primary mb-0.5">26+ Acres</h3>
+                <p className="text-sm font-semibold text-primary mb-1">Green Campus</p>
+               
               </div>
-              <div className="bg-gray-50 border-1 border-primary rounded-xl p-4">
+              {/* <div className="bg-gray-50 border-1 border-primary rounded-xl p-4">
                 <h3 className="text-2xl md:text-3xl font-bold text-primary mb-0.5">100%</h3>
                 <p className="text-sm font-semibold text-primary mb-1">Residential</p>
                 <p className="text-xs text-gray-600">Boarding Campus</p>
-              </div>
+              </div> */}
             </div>
 
-            {/* Awards and Ratings Section */}
+            {/* Collaborations */}
             <div className="mt-12">
               <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-6 text-center">Collaberations</h2>
               

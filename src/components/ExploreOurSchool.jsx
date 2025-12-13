@@ -2,43 +2,32 @@ import { useState, useEffect } from 'react'
 
 const ExploreOurSchool = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [selectedCard, setSelectedCard] = useState(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const closeModal = () => {
-    setIsModalOpen(false)
-    setSelectedCard(null)
-    document.body.style.overflow = 'unset'
-  }
-
-  // Handle ESC key to close modal
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape' && isModalOpen) {
-        closeModal()
-      }
-    }
-    document.addEventListener('keydown', handleEscape)
-    return () => document.removeEventListener('keydown', handleEscape)
-  }, [isModalOpen])
+  const [isDragging, setIsDragging] = useState(false)
+  const [startX, setStartX] = useState(0)
 
   const cards = [
     {
       id: 1,
-      title: 'Academic Excellence',
-      description: 'Dual curriculum CBSE & Cambridge',
+      title: 'Board Exams Support',
+      description: 'Daily extra classes & supervised study hours',
       icon: (
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
           <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
         </svg>
       ),
-      image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop',
+      image: '/hostel/13.webp',
+      hoverContent: [
+        'Daily extra classes',
+        'Supervised study hours',
+        'Digital library & study zones',
+        'Micro-prep sessions and mock tests'
+      ],
       modal: {
-        title: 'Academic Excellence',
-        subtitle: 'Dual curriculum CBSE & Cambridge',
+        title: 'Board Exams Support',
+        subtitle: 'Daily extra classes & more',
         image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&h=600&fit=crop',
-        sectionTitle: 'Campus Curriculum Excellence',
-        description: 'The Hyderabad campus offers a dual curriculum of CBSE and Cambridge, providing flexibility and a broad spectrum of academic choices. This combination allows students to access both national and international educational standards, preparing them for success in a global context.',
+        sectionTitle: 'Helping You Ace Board Exams',
+        description: 'A well-rounded academic support program to ensure you are fully prepared for board exams.',
         certifications: [
           {
             icon: (
@@ -46,7 +35,7 @@ const ExploreOurSchool = () => {
                 <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
               </svg>
             ),
-            text: 'CBSE - New Delhi certification'
+            text: 'Daily extra classes'
           },
           {
             icon: (
@@ -54,337 +43,265 @@ const ExploreOurSchool = () => {
                 <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 01.787.77l4 1a1 1 0 01.316 1.968l-7 2a1 1 0 01-.788 0l-7-2a1 1 0 01.316-1.968l4-1a1 1 0 01.787-.77l1.94-.831-1.667-.714a1 1 0 10-.788-1.838l4 1.714a1 1 0 01.356.257l6.644 2.843a1 1 0 000-1.838l-7-3z" />
               </svg>
             ),
-            text: 'Cambridge Assessment International Education (CAIE - UK)'
+            text: 'Supervised study hours'
+          },
+          {
+            icon: (
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V5z" />
+              </svg>
+            ),
+            text: 'Digital library & study zones'
+          },
+          {
+            icon: (
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <circle cx="10" cy="10" r="8" />
+                <path d="M6 13l2-2 2 2 4-4" stroke="currentColor" strokeWidth="2" fill="none" />
+              </svg>
+            ),
+            text: 'Micro-prep sessions and mock tests'
           }
         ]
       }
     },
     {
       id: 2,
-      title: 'Student Progression Plan',
-      description: 'Personalized growth tracking',
+      title: 'Sports Freedom',
+      description: 'Daily sports access & pro coaching',
       icon: (
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
           <path fillRule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
         </svg>
       ),
-      image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop',
+      image: '/hostel/cricket.webp',
+      hoverContent: [
+        'MS Dhoni Cricket Academy',
+        'YAMA Skating Academy',
+        'Hyderabad Football Club',
+        'Malka Komaraiah\'s Badminton Academy',
+        'Basketball, Open Gym & Swimming'
+    
+      ],
       modal: {
-        title: 'Student Progression Plan',
-        subtitle: 'Personalized growth tracking',
+        title: 'Sports Freedom',
+        subtitle: 'Daily access & sports collaborations',
         image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=600&fit=crop',
-        sectionTitle: 'Personalized Learning Journey',
-        description: 'Our comprehensive student progression plan ensures each student receives personalized attention and support. Through regular assessments, one-on-one mentoring, and data-driven insights, we track and enhance every student\'s academic and personal growth journey.',
+        sectionTitle: 'Professional Coaching & Sports Facilities',
+        description: 'Choose from a wide range of daily sports activities and unique pro-collaborations.',
         certifications: [
           {
             icon: (
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
-                <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
+                <circle cx="10" cy="10" r="8" />
+                <path d="M5 10h10" stroke="currentColor" strokeWidth="2" />
               </svg>
             ),
-            text: 'Individual Learning Plans'
+            text: 'MS Dhoni Cricket Academy'
           },
           {
             icon: (
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+                <circle cx="10" cy="10" r="8" />
               </svg>
             ),
-            text: 'Regular Progress Assessments'
+            text: 'YAMA Skating Academy'
+          },
+          {
+            icon: (
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <rect x="4" y="7" width="12" height="6" rx="2" />
+              </svg>
+            ),
+            text: 'Hyderabad Football Club'
+          },
+          {
+            icon: (
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <circle cx="10" cy="10" r="6" />
+              </svg>
+            ),
+            text: 'Basketball'
+          },
+          {
+            icon: (
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <ellipse cx="10" cy="10" rx="7" ry="3" />
+              </svg>
+            ),
+            text: 'Swimming'
+          },
+          {
+            icon: (
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <rect x="6" y="4" width="8" height="2" rx="1" />
+                <rect x="8" y="6" width="4" height="10" rx="2" />
+              </svg>
+            ),
+            text: 'Malka Komaraiah’s Badminton Academy'
+          },
+          {
+            icon: (
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <rect x="5" y="11" width="10" height="4" rx="2" />
+              </svg>
+            ),
+            text: 'Open gym'
           }
         ]
       }
     },
     {
       id: 3,
-      title: 'Co-curricular Activities',
-      description: 'Holistic development beyond academics',
+      title: 'Our Hall of Excellence',
+      description: 'Where alumni become achievers',
       icon: (
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
           <path fillRule="evenodd" d="M7 2a1 1 0 00-.707 1.707L7 4.414v3.758a1 1 0 01-.293.707l-4 4C.817 14.769 2.156 18 4.828 18h10.343c2.673 0 4.012-3.231 2.122-5.121l-4-4A1 1 0 0113 8.172V4.414l.707-.707A1 1 0 0013 2H7zm2 6.172V4h2v4.172a3 3 0 00.879 2.12l1.027 1.028a4 4 0 00-2.171.102l-.47.156a4 4 0 01-2.53 0l-.563-.187a1.993 1.993 0 00-.114-.035l1.063-1.063A3 3 0 009 8.172z" clipRule="evenodd" />
         </svg>
       ),
       image: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800&h=600&fit=crop',
+      hoverContent: [
+        'State & national level athletes',
+        'IIT & medicine aspirants',
+        'Olympiad rankers, Academic toppers,',
+        'All-rounders in sports, leadership and academics'
+      ],
       modal: {
-        title: 'Co-curricular Activities',
-        subtitle: 'Holistic development beyond academics',
+        title: 'Our Hall of Excellence',
+        subtitle: 'Achievers who once lived here',
         image: 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=1200&h=600&fit=crop',
-        sectionTitle: 'Enriching Extracurricular Programs',
-        description: 'Our diverse range of co-curricular activities ensures students develop talents beyond the classroom. From arts and music to sports and technology clubs, we provide opportunities for students to explore their passions, build leadership skills, and create lasting friendships.',
+        sectionTitle: 'Where Legends Begin',
+        description: 'Our alumni once lived and trained in this very hostel and grew into:',
         certifications: [
           {
             icon: (
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M6 3a1 1 0 011-1h.01a1 1 0 010 2H7a1 1 0 01-1-1zm2 3a1 1 0 00-2 0v1a2 2 0 00-2 2h1a1 1 0 100 2H4a2 2 0 00-2-2V6a4 4 0 014-4h3a1 1 0 100-2H7a4 4 0 00-4 4v2a2 2 0 002 2h1a1 1 0 100-2H4V6h1a1 1 0 001-1zm3 0a1 1 0 011-1h3a1 1 0 110 2h-3a1 1 0 01-1-1zm1 4a1 1 0 100 2h1a1 1 0 100-2h-1z" clipRule="evenodd" />
+                <rect x="3" y="7" width="14" height="6" rx="2" />
               </svg>
             ),
-            text: 'Arts & Creative Programs'
+            text: 'State & national level athletes'
           },
           {
             icon: (
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+                <circle cx="10" cy="10" r="6" />
               </svg>
             ),
-            text: 'Sports & Athletics'
+            text: 'IIT & medicine aspirants'
+          },
+          {
+            icon: (
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <polygon points="10,3 13,17 10,14 7,17" />
+              </svg>
+            ),
+            text: 'Olympiad rankers'
+          },
+          {
+            icon: (
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <rect x="6" y="6" width="8" height="8" rx="2" />
+              </svg>
+            ),
+            text: 'Academic toppers'
+          },
+          {
+            icon: (
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 2v16M2 10h16" stroke="currentColor" strokeWidth="2"/>
+              </svg>
+            ),
+            text: 'All-rounders in sports, leadership and academics'
           }
         ]
       }
     },
+    // The rest of the cards will represent the daily life, hostel, and dining experience.
     {
       id: 4,
-      title: 'Life Readiness',
-      description: 'Essential life skills development',
+      title: 'Rooms & Spaces',
+      description: 'Shared, bright, comfortable rooms & community lounge',
       icon: (
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-        </svg>
+        <span role="img" aria-label="bed">🛏️</span>
       ),
-      image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop',
+      image: '/hostel/01.webp',
+      hoverContent: [
+        'Air-conditioning',
+        'Individual storage',
+        'Study areas, Fresh Linen',
+        'Daily housekeeping',
+        'Community Lounge'
+      ],
       modal: {
-        title: 'Life Readiness',
-        subtitle: 'Essential life skills development',
-        image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&h=600&fit=crop',
-        sectionTitle: 'Preparing for Real-World Success',
-        description: 'Our life readiness program equips students with essential skills for independent living and career success. Through workshops, mentorship, and practical experiences, students learn financial literacy, communication skills, problem-solving, and emotional intelligence.',
+        title: 'Rooms & Spaces',
+        subtitle: 'Shared rooms & community spaces',
+        image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&h=600&fit=crop',
+        sectionTitle: 'Comfort. Community. Convenience.',
+        description: 'We offer bright, organised and comfortable shared rooms with modern amenities and a vibrant community lounge.',
         certifications: [
-          {
-            icon: (
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clipRule="evenodd" />
-              </svg>
-            ),
-            text: 'Financial Literacy Programs'
-          },
-          {
-            icon: (
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
-                <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
-              </svg>
-            ),
-            text: 'Communication & Leadership'
-          }
+          { icon: <span role="img" aria-label="ac-room">❄️</span>, text: 'Air-conditioning' },
+          { icon: <span role="img" aria-label="locker">🔒</span>, text: 'Individual storage' },
+          { icon: <span role="img" aria-label="study">📚</span>, text: 'Study areas' },
+          { icon: <span role="img" aria-label="linen">🧺</span>, text: 'Fresh linen' },
+          { icon: <span role="img" aria-label="housekeeping">🧹</span>, text: 'Daily housekeeping' },
+          { icon: <span role="img" aria-label="lounge">🛋️</span>, text: 'Community Lounge: relax, unwind & recharge' }
         ]
       }
     },
     {
       id: 5,
-      title: 'Modern Facilities',
-      description: 'State-of-the-art infrastructure',
+      title: 'Dining',
+      description: 'Balanced multi-cuisine meals, hygiene & quality checks',
       icon: (
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-        </svg>
+        <span role="img" aria-label="dining">🍽️</span>
       ),
-      image: 'https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=800&h=600&fit=crop',
+      image: '/hostel/chef.webp',
+      hoverContent: [
+        'Balanced meals',
+        'Multi-cuisine options available',
+        'Hygiene and quality checks maintained throughout the week'
+      ],
       modal: {
-        title: 'Modern Facilities',
-        subtitle: 'State-of-the-art infrastructure',
-        image: 'https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=1200&h=600&fit=crop',
-        sectionTitle: 'World-Class Campus Infrastructure',
-        description: 'Our campus features cutting-edge facilities designed to enhance learning and living experiences. From smart classrooms and advanced laboratories to recreational spaces and comfortable boarding accommodations, every facility is thoughtfully designed to support student success.',
+        title: 'Dining',
+        subtitle: 'Balanced meals & variety',
+        image: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?w=1200&h=600&fit=crop',
+        sectionTitle: 'Meal Experiences',
+        description: 'Nutritious, multi-cuisine meals with hygiene and quality checks maintained throughout the week.',
         certifications: [
-          {
-            icon: (
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-              </svg>
-            ),
-            text: 'Smart Classrooms & Labs'
-          },
-          {
-            icon: (
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clipRule="evenodd" />
-              </svg>
-            ),
-            text: 'Recreational & Sports Facilities'
-          }
+          { icon: <span role="img" aria-label="meal">🥗</span>, text: 'Balanced meals' },
+          { icon: <span role="img" aria-label="variety">🍱</span>, text: 'Multi-cuisine options' },
+          { icon: <span role="img" aria-label="hygiene">🧼</span>, text: 'Strict hygiene & quality checks' }
         ]
       }
     },
     {
       id: 6,
-      title: 'Global Community',
-      description: 'Diverse international environment',
+      title: 'Daily Life',
+      description: 'Wellness, learning, and recreation routines',
       icon: (
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-        </svg>
+        <span role="img" aria-label="leaf">🌿</span>
       ),
-      image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&h=600&fit=crop',
+      image: '/hostel/gym.webp',
+      hoverContent: [
+        'Morning exercise & yoga',
+        'Balanced meals',
+        'Library & computer labs',
+        'Sports & recreation',
+        'Supervised study slots'
+      ],
       modal: {
-        title: 'Global Community',
-        subtitle: 'Diverse international environment',
-        image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&h=600&fit=crop',
-        sectionTitle: 'A Truly International Experience',
-        description: 'Our school brings together students from diverse cultural backgrounds, creating a rich, multicultural learning environment. This global community fosters understanding, respect, and prepares students to thrive in an interconnected world.',
+        title: 'Daily Life',
+        subtitle: 'Active, healthy, and balanced',
+        image: 'https://images.unsplash.com/photo-1482062364825-616fd23b8fc1?w=1200&h=600&fit=crop',
+        sectionTitle: 'A Day in the Hostel',
+        description: 'A structured routine to ensure holistic growth — mind, body, and soul.',
         certifications: [
-          {
-            icon: (
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-              </svg>
-            ),
-            text: 'Students from 20+ Countries'
-          },
-          {
-            icon: (
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-            ),
-            text: 'Cultural Exchange Programs'
-          }
-        ]
-      }
-    },
-    {
-      id: 7,
-      title: 'Boarding Life',
-      description: 'Safe and supportive residential experience',
-      icon: (
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-        </svg>
-      ),
-      image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&h=600&fit=crop',
-      modal: {
-        title: 'Boarding Life',
-        subtitle: 'Safe and supportive residential experience',
-        image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1200&h=600&fit=crop',
-        sectionTitle: 'A Home Away From Home',
-        description: 'Our boarding facilities provide a safe, nurturing environment where students learn independence while receiving 24/7 supervision and support. With comfortable accommodations, nutritious meals, and structured routines, students thrive in a home-like atmosphere.',
-        certifications: [
-          {
-            icon: (
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-            ),
-            text: '24/7 Supervision & Support'
-          },
-          {
-            icon: (
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
-                <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
-              </svg>
-            ),
-            text: 'Comfortable Accommodations'
-          }
-        ]
-      }
-    },
-    {
-      id: 8,
-      title: 'Career Guidance',
-      description: 'Expert counseling and mentorship',
-      icon: (
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-        </svg>
-      ),
-      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
-      modal: {
-        title: 'Career Guidance',
-        subtitle: 'Expert counseling and mentorship',
-        image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&h=600&fit=crop',
-        sectionTitle: 'Shaping Future Careers',
-        description: 'Our dedicated career counseling team works closely with students to identify their strengths, interests, and career aspirations. Through personalized guidance, university preparation, and internship opportunities, we help students make informed decisions about their future.',
-        certifications: [
-          {
-            icon: (
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
-                <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
-              </svg>
-            ),
-            text: 'University Preparation Support'
-          },
-          {
-            icon: (
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-              </svg>
-            ),
-            text: 'Internship & Mentorship Programs'
-          }
-        ]
-      }
-    },
-    {
-      id: 9,
-      title: 'Technology Integration',
-      description: 'Digital learning and innovation',
-      icon: (
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clipRule="evenodd" />
-        </svg>
-      ),
-      image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop',
-      modal: {
-        title: 'Technology Integration',
-        subtitle: 'Digital learning and innovation',
-        image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=600&fit=crop',
-        sectionTitle: 'Future-Ready Digital Learning',
-        description: 'We integrate cutting-edge technology into our curriculum to enhance learning experiences. From interactive smart boards and digital resources to coding programs and AI literacy, students develop essential tech skills for the digital age.',
-        certifications: [
-          {
-            icon: (
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clipRule="evenodd" />
-              </svg>
-            ),
-            text: 'Smart Classrooms & Digital Tools'
-          },
-          {
-            icon: (
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-            ),
-            text: 'Coding & AI Literacy Programs'
-          }
-        ]
-      }
-    },
-    {
-      id: 10,
-      title: 'Wellness & Support',
-      description: 'Holistic health and wellbeing',
-      icon: (
-        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-          <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-        </svg>
-      ),
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&h=600&fit=crop',
-      modal: {
-        title: 'Wellness & Support',
-        subtitle: 'Holistic health and wellbeing',
-        image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&h=600&fit=crop',
-        sectionTitle: 'Comprehensive Student Wellness',
-        description: 'We prioritize the physical, mental, and emotional wellbeing of every student. Our comprehensive wellness program includes health services, counseling support, mindfulness activities, and recreational programs designed to maintain a healthy balance.',
-        certifications: [
-          {
-            icon: (
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-              </svg>
-            ),
-            text: 'Health & Counseling Services'
-          },
-          {
-            icon: (
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
-              </svg>
-            ),
-            text: 'Mindfulness & Recreation'
-          }
+          { icon: <span role="img" aria-label="yoga">🧘‍♂️</span>, text: 'Morning exercise & yoga' },
+          { icon: <span role="img" aria-label="balanced">🥗</span>, text: 'Balanced meals' },
+          { icon: <span role="img" aria-label="library">📖</span>, text: 'Library & computer labs' },
+          { icon: <span role="img" aria-label="sports">🏸</span>, text: 'Sports & recreation' },
+          { icon: <span role="img" aria-label="study">📅</span>, text: 'Supervised study slots' }
         ]
       }
     }
@@ -414,20 +331,87 @@ const ExploreOurSchool = () => {
   const maxIndex = Math.max(0, cards.length - cardsPerView)
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1))
+    setCurrentIndex((prev) => (prev + 1) % cards.length)
   }
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1))
+    setCurrentIndex((prev) => (prev - 1 + cards.length) % cards.length)
   }
 
-  const openModal = (card) => {
-    setSelectedCard(card)
-    setIsModalOpen(true)
-    document.body.style.overflow = 'hidden'
+  // Drag handlers
+  const handleMouseDown = (e) => {
+    setIsDragging(true)
+    setStartX(e.pageX)
   }
 
-  const visibleCards = cards.slice(currentIndex, currentIndex + cardsPerView)
+  const handleMouseMove = (e) => {
+    if (!isDragging) return
+    e.preventDefault()
+    const x = e.pageX
+    const walk = x - startX
+    const threshold = 80 // Minimum drag distance to trigger slide change
+    
+    if (Math.abs(walk) > threshold) {
+      if (walk > 0) {
+        // Swipe right - go to previous (loop)
+        setCurrentIndex((prev) => (prev - 1 + cards.length) % cards.length)
+        setIsDragging(false)
+      } else {
+        // Swipe left - go to next (loop)
+        setCurrentIndex((prev) => (prev + 1) % cards.length)
+        setIsDragging(false)
+      }
+    }
+  }
+
+  const handleMouseUp = () => {
+    setIsDragging(false)
+  }
+
+  const handleMouseLeave = () => {
+    setIsDragging(false)
+  }
+
+  // Touch handlers for mobile
+  const handleTouchStart = (e) => {
+    setIsDragging(true)
+    setStartX(e.touches[0].pageX)
+  }
+
+  const handleTouchMove = (e) => {
+    if (!isDragging) return
+    const x = e.touches[0].pageX
+    const walk = x - startX
+    const threshold = 80
+    
+    if (Math.abs(walk) > threshold) {
+      if (walk > 0) {
+        // Swipe right - go to previous (loop)
+        setCurrentIndex((prev) => (prev - 1 + cards.length) % cards.length)
+        setIsDragging(false)
+      } else {
+        // Swipe left - go to next (loop)
+        setCurrentIndex((prev) => (prev + 1) % cards.length)
+        setIsDragging(false)
+      }
+    }
+  }
+
+  const handleTouchEnd = () => {
+    setIsDragging(false)
+  }
+
+  // Get visible cards with looping support
+  const getVisibleCards = () => {
+    const visible = []
+    for (let i = 0; i < cardsPerView; i++) {
+      const index = (currentIndex + i) % cards.length
+      visible.push(cards[index])
+    }
+    return visible
+  }
+
+  const visibleCards = getVisibleCards()
 
   return (
     <section id="explore" className="py-16 md:py-14 bg-white relative">
@@ -435,7 +419,7 @@ const ExploreOurSchool = () => {
         {/* Top Badge */}
         <div className="text-center mb-8">
           <span className="inline-block text-primary px-4 py-1.5 rounded-full text-sm font-medium border border-primary">
-            Explore Our School
+            About The Campus
           </span>
         </div>
 
@@ -446,43 +430,32 @@ const ExploreOurSchool = () => {
             <span className="text-[#155b2e]">Delhi Public School Nacharam</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Discover our comprehensive approach to education that goes beyond academics to shape well-rounded, future-ready leaders.
+            Students live in well-designed shared spaces, access exceptional sports facilities, and stay within a safe, supervised and professionally managed environment.
           </p>
         </div>
 
         {/* Carousel Container */}
         <div className="relative">
-          {/* Navigation Buttons */}
-          {cards.length > cardsPerView && (
-            <>
-              <button
-                onClick={prevSlide}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white rounded-full p-2 shadow-lg hover:bg-gray-50 transition-colors"
-                aria-label="Previous cards"
-              >
-                <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                onClick={nextSlide}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white rounded-full p-2 shadow-lg hover:bg-gray-50 transition-colors"
-                aria-label="Next cards"
-              >
-                <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </>
-          )}
-
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-hidden transition-all duration-300">
+          {/* Cards Grid - Draggable */}
+          <div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-hidden transition-all duration-300 select-none"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            style={{ 
+              cursor: isDragging ? 'grabbing' : 'grab',
+              userSelect: 'none',
+              WebkitUserSelect: 'none'
+            }}
+          >
             {visibleCards.map((card) => (
               <div
                 key={card.id}
-                className="relative rounded-2xl overflow-hidden cursor-pointer group"
-                onClick={() => openModal(card)}
+                className="relative rounded-2xl overflow-hidden group"
               >
                 {/* Card Image */}
                 <div className="relative h-64 overflow-hidden">
@@ -494,25 +467,28 @@ const ExploreOurSchool = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                   
                   {/* Icon Badge */}
-                  <div className="absolute top-4 left-4 w-12 h-12 bg-white rounded-full border-2 border-[#155b2e] flex items-center justify-center text-[#155b2e] z-10">
+                  <div className="absolute top-4 left-4 w-12 h-12 bg-white rounded-full border-2 border-[#155b2e] flex items-center justify-center text-[#155b2e] z-10 group-hover:opacity-0 transition-opacity duration-300">
                     {card.icon}
                   </div>
 
-                  {/* Plus Button */}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      openModal(card)
-                    }}
-                    className="absolute bottom-4 left-4 w-10 h-10 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center text-white text-xl font-light transition-colors z-10"
-                    aria-label={`Learn more about ${card.title}`}
-                  >
-                    +
-                  </button>
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-[#155b2e]/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex flex-col items-center justify-center p-6">
+                    <div className="text-white text-center">
+                      <h3 className="text-xl font-bold mb-4">{card.title}</h3>
+                      <ul className="space-y-1.8 text-sm md:text-base text-left max-h-48 overflow-y-auto">
+                        {card.hoverContent?.map((item, index) => (
+                          <li key={index} className="flex items-start gap-2">
+                            <span className="text-white/90 mt-1.5 flex-shrink-0">•</span>
+                            <span className="text-white/95 font-medium leading-relaxed">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Card Content */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white z-10">
+                {/* Card Content - Hidden on hover */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white z-10 group-hover:opacity-0 transition-opacity duration-300">
                   <h3 className="text-xl font-bold mb-2">{card.title}</h3>
                   <p className="text-sm text-white/90">{card.description}</p>
                 </div>
@@ -520,100 +496,35 @@ const ExploreOurSchool = () => {
             ))}
           </div>
 
-          {/* Scroll Indicator */}
-          <div className="flex justify-center mt-8">
-            <div className="w-64 h-1 bg-gray-200 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-[#155b2e] transition-all duration-300"
-                style={{ width: `${((currentIndex + cardsPerView) / cards.length) * 100}%` }}
-              />
-            </div>
+          {/* Dot Indicators - One per card */}
+          <div className="flex justify-center items-center gap-2 mt-8">
+            {cards.map((card, index) => {
+              // Check if this card is currently visible (works with looping)
+              const isVisible = visibleCards.some(visibleCard => visibleCard.id === card.id)
+              // Check if this card is the first visible card (active)
+              const isActive = index === currentIndex
+              
+              return (
+                <button
+                  key={card.id}
+                  onClick={() => {
+                    // Navigate to show this card as the first visible card
+                    setCurrentIndex(index)
+                  }}
+                  className={`transition-all duration-300 rounded-full ${
+                    isActive
+                      ? 'w-3 h-3 bg-[#155b2e]'
+                      : isVisible
+                      ? 'w-2.5 h-2.5 bg-[#155b2e]/50'
+                      : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  aria-label={`Go to ${card.title}`}
+                />
+              )
+            })}
           </div>
         </div>
       </div>
-
-      {/* Modal */}
-      {isModalOpen && selectedCard && (
-        <div
-          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
-          onClick={closeModal}
-        >
-          <div
-            className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button
-              onClick={closeModal}
-              className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 z-10 bg-white rounded-full"
-              aria-label="Close modal"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-
-            <div className="p-8">
-              {/* Modal Header */}
-              <div className="flex items-start gap-4 mb-6">
-                <div className="w-16 h-16 bg-[#e8f5e9] rounded-lg border-2 border-[#155b2e] flex items-center justify-center text-[#155b2e] flex-shrink-0">
-                  {selectedCard.icon}
-                </div>
-                <div>
-                  <h3 className="text-3xl font-bold text-gray-900 mb-2">{selectedCard.modal.title}</h3>
-                  <p className="text-lg text-gray-600">{selectedCard.modal.subtitle}</p>
-                </div>
-              </div>
-
-              {/* Modal Image */}
-              <div className="mb-6 rounded-lg overflow-hidden">
-                <img
-                  src={selectedCard.modal.image}
-                  alt={selectedCard.modal.title}
-                  className="w-full h-64 object-cover"
-                />
-              </div>
-
-              {/* Content Section */}
-              <div className="mb-8">
-                <h4 className="text-2xl font-bold text-gray-900 mb-4">{selectedCard.modal.sectionTitle}</h4>
-                <p className="text-gray-700 leading-relaxed mb-6">{selectedCard.modal.description}</p>
-
-                {/* Certifications */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {selectedCard.modal.certifications.map((cert, index) => (
-                    <div
-                      key={index}
-                      className="bg-gray-50 rounded-lg p-4 flex items-start gap-3"
-                    >
-                      <div className="text-[#155b2e] flex-shrink-0 mt-1">
-                        {cert.icon}
-                      </div>
-                      <p className="text-gray-700">{cert.text}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* CTA Section */}
-              <div className="border-t pt-6">
-                <h4 className="text-xl font-bold text-gray-900 mb-2">Ready to Learn More?</h4>
-                <p className="text-gray-600 mb-6">
-                  Get detailed information about our programs and admissions process.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <button className="px-6 py-3 bg-[#155b2e] text-white rounded-lg font-medium hover:bg-[#124a26] transition-colors">
-                    Schedule Campus Visit
-                  </button>
-                  <button className="px-6 py-3 bg-white border-2 border-[#155b2e] text-[#155b2e] rounded-lg font-medium hover:bg-gray-50 transition-colors">
-                    Download Brochure
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   )
 }

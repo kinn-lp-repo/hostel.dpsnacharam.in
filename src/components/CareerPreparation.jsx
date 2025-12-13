@@ -40,11 +40,11 @@ const CareerPreparation = () => {
             </span>
           </div>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight tracking-tight">
-            Prepare for your dream career from Grade 11
+            Academics & Support System
           </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          {/* <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             From Grade 11 onwards, our students embark on a journey of focused career preparation. Choose your dream path and excel in competitive examinations with industry-leading coaching partners.
-          </p>
+          </p> */}
         </div>
 
         {/* Two Column Cards Section */}
@@ -63,14 +63,14 @@ const CareerPreparation = () => {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-tight">
-                      Intensive Board Exam Preparation by School
+                      Integrated Academic Programs
                     </h3>
-                    <p className="text-gray-600 leading-relaxed text-base">
+                    {/* <p className="text-gray-600 leading-relaxed text-base">
                       Our school delivers comprehensive and rigorous preparation for Grade 11 and 12 board examinations, ensuring every student achieves academic excellence and builds a solid foundation for their future.
-                    </p>
+                    </p> */}
                   </div>
                 </div>
-                
+
                 <div className="space-y-5 mt-8">
                   <div className="flex items-start gap-4">
                     <div className="w-6 h-6 rounded-lg bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -78,7 +78,7 @@ const CareerPreparation = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <p className="text-gray-700 text-base leading-relaxed pt-0.5">Rigorous curriculum perfectly aligned with board standards</p>
+                    <p className="text-gray-700 text-base leading-relaxed pt-0.5">VI–X: IIT Foundation Track</p>
                   </div>
                   <div className="flex items-start gap-4">
                     <div className="w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -86,7 +86,7 @@ const CareerPreparation = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                       </svg>
                     </div>
-                    <p className="text-gray-700 text-base leading-relaxed pt-0.5">Regular assessments and comprehensive mock examinations</p>
+                    <p className="text-gray-700 text-base leading-relaxed pt-0.5">XI–XII: JEE Main & Advanced Integrated Program</p>
                   </div>
                   <div className="flex items-start gap-4">
                     <div className="w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -120,41 +120,85 @@ const CareerPreparation = () => {
                   </div>
                   <div className="flex-1">
                     <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-tight">
-                      Focused Coaching Excellence
+                      Our Academic Approach
                     </h3>
-                    <p className="text-gray-600 leading-relaxed text-base">
+                    {/* <p className="text-gray-600 leading-relaxed text-base">
                       Experience unparalleled competitive exam preparation with expert coaching faculty residing on campus, ensuring continuous guidance and mentorship for your success journey.
-                    </p>
+                    </p> */}
                   </div>
                 </div>
-                
-                <div className="space-y-5 mt-8">
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5 mt-8">
                   <div className="flex items-start gap-4">
                     <div className="w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                       <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v8m4-4H8" />
                       </svg>
                     </div>
-                    <p className="text-gray-700 text-base leading-relaxed pt-0.5">Expert coaching faculty residing within campus premises</p>
+                    <p className="text-gray-700 text-base leading-relaxed pt-0.5">Results-driven planning</p>
                   </div>
                   <div className="flex items-start gap-4">
                     <div className="w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                       <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth={2} fill="none" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h3v3" />
                       </svg>
                     </div>
-                    <p className="text-gray-700 text-base leading-relaxed pt-0.5">Periodic performance analysis and detailed progress reports</p>
+                    <p className="text-gray-700 text-base leading-relaxed pt-0.5">Student-centric support</p>
                   </div>
                   <div className="flex items-start gap-4">
                     <div className="w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
                       <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        <path strokeLinejoin="round" strokeLinecap="round" strokeWidth={2} d="M12 14c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 0v5" />
                       </svg>
                     </div>
-                    <p className="text-gray-700 text-base leading-relaxed pt-0.5">Comprehensive mock tests and exam series to ace competitions</p>
+                    <p className="text-gray-700 text-base leading-relaxed pt-0.5">360° personality growth</p>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="5" y="5" width="14" height="14" rx="2" stroke="currentColor" strokeWidth={2} fill="none" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 9h6v6H9V9z" />
+                      </svg>
+                    </div>
+                    <p className="text-gray-700 text-base leading-relaxed pt-0.5">Systematic evaluation</p>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m7-7v14" />
+                      </svg>
+                    </div>
+                    <p className="text-gray-700 text-base leading-relaxed pt-0.5">Weekly performance tracking</p>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 21v-6M7 21v-4M12 21v-10M12 7V3m0 4a2 2 0 11-4 0 2 2 0 014 0zm-6.995.141A2 2 0 004 9c0 .596.263 1.127.682 1.476" />
+                      </svg>
+                    </div>
+                    <p className="text-gray-700 text-base leading-relaxed pt-0.5">Professional mentorship</p>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <rect x="6" y="9" width="12" height="6" rx="2" stroke="currentColor" strokeWidth={2} fill="none" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m0-10v2" />
+                      </svg>
+                    </div>
+                    <p className="text-gray-700 text-base leading-relaxed pt-0.5">Fixed, monitored study hours</p>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-6 h-6 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg className="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="text-gray-700 text-base leading-relaxed pt-0.5">Regular tests & progress reviews</p>
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -164,7 +208,7 @@ const CareerPreparation = () => {
           <h3 className="text-4xl md:text-5xl font-bold text-black text-center mb-12">
             Our Coaching Excellence Partners
           </h3>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {partners.map((partner, index) => (
               <div
@@ -175,8 +219,8 @@ const CareerPreparation = () => {
                   {/* Logo */}
                   <div className="mb-5 flex items-center">
                     {!imageErrors[partner.logoPath] ? (
-                      <img 
-                        src={partner.logoPath} 
+                      <img
+                        src={partner.logoPath}
                         alt={`${partner.name} logo`}
                         className="h-12 w-auto object-contain max-w-full"
                         style={{ display: 'block' }}
@@ -194,7 +238,7 @@ const CareerPreparation = () => {
                       </div>
                     )}
                   </div>
-                  
+
                   {/* Title and Subtitle */}
                   {/* <h4 className="text-2xl font-bold text-black mb-1">
                     {partner.name}
@@ -202,12 +246,12 @@ const CareerPreparation = () => {
                   <p className="text-base text-black mb-4 font-normal">
                     {partner.subtitle}
                   </p>
-                  
+
                   {/* Description */}
                   <p className="text-gray-600 mb-6 leading-relaxed text-base">
                     {partner.description}
                   </p>
-                  
+
                   {/* Entrance Exams */}
                   <div>
                     <h5 className="text-sm font-semibold text-black mb-3">

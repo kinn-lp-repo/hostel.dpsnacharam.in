@@ -17,11 +17,25 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
-      <nav className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+      <nav className="container mx-auto px-2 sm:px-4 py-3 sm:py-4">
+        <div className="flex items-center justify-evenly gap-2">
           {/* Logo */}
-          <div className="flex items-center">
-            <h1 className="text-2xl font-bold text-primary">Hostel</h1>
+          <div className="flex items-center gap-1 sm:gap-2 md:gap-3 lg:gap-4 flex-shrink-0">
+            <img 
+              src="/hostel/header.webp" 
+              alt="Hostel" 
+              className="w-32 h-8 sm:w-40 sm:h-10 md:w-56 md:h-11 lg:w-80 lg:h-12 object-contain" 
+            />
+            <img 
+              src="https://cbse.dpsnacharam.in/assets/img/CBSE%20Logo.webp" 
+              alt="CBSE Logo" 
+              className="h-8 w-auto sm:h-10 md:h-11 lg:h-12 object-contain flex-shrink-0" 
+            />
+            <img 
+              src="https://cbse.dpsnacharam.in/assets/img/Cambridge%20logo%202024.webp" 
+              alt="Cambridge Logo" 
+              className="h-8 w-auto sm:h-10 md:h-11 lg:h-12 object-contain flex-shrink-0" 
+            />
           </div>
 
           {/* Desktop Navigation */}
@@ -44,7 +58,7 @@ const Header = () => {
             >
               Virtual Tour
             </button>
-            <button
+            {/* <button
               onClick={() => scrollToSection('grades')}
               className="text-black hover:text-primary transition-colors"
             >
@@ -55,13 +69,13 @@ const Header = () => {
               className="text-black hover:text-primary transition-colors"
             >
               Journey
-            </button>
-            <button
+            </button> */}
+            {/* <button
               onClick={() => scrollToSection('stories')}
               className="text-black hover:text-primary transition-colors"
             >
               Stories
-            </button>
+            </button> */}
             <button
               onClick={() => scrollToSection('career')}
               className="text-black hover:text-primary transition-colors"
@@ -135,18 +149,18 @@ const Header = () => {
               >
                 Virtual Tour
               </button>
-              <button
+              {/* <button
                 onClick={() => scrollToSection('grades')}
                 className="text-left text-black hover:text-primary transition-colors"
               >
                 Grades
-              </button>
-              <button
+              </button> */}
+              {/* <button
                 onClick={() => scrollToSection('journey')}
                 className="text-left text-black hover:text-primary transition-colors"
               >
                 Journey
-              </button>
+              </button> */}
               <button
                 onClick={() => scrollToSection('stories')}
                 className="text-left text-black hover:text-primary transition-colors"
