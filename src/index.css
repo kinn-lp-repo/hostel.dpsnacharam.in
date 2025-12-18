@@ -94,28 +94,28 @@
   }
 
   .animate-scroll-row-1 {
-    animation: scroll-row-1 25s linear infinite;
+    animation: scroll-row-1 8s linear infinite;
   }
 
   .animate-scroll-row-2 {
-    animation: scroll-row-2 25s linear infinite;
+    animation: scroll-row-2 8s linear infinite;
   }
 
   .animate-scroll-row-3 {
-    animation: scroll-row-3 25s linear infinite;
+    animation: scroll-row-3 8s linear infinite;
   }
 
   @media (min-width: 768px) {
     .animate-scroll-row-1 {
-      animation: scroll-row-1 40s linear infinite;
+      animation: scroll-row-1 8s linear infinite;
     }
 
     .animate-scroll-row-2 {
-      animation: scroll-row-2 40s linear infinite;
+      animation: scroll-row-2 8s linear infinite;
     }
 
     .animate-scroll-row-3 {
-      animation: scroll-row-3 40s linear infinite;
+      animation: scroll-row-3 8s linear infinite;
     }
   }
 }

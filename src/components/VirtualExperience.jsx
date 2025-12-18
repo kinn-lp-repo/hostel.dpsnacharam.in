@@ -6,6 +6,104 @@ const VirtualExperience = () => {
     }
   }
 
+  const features = [
+    {
+      title: 'Lush Green',
+      description: 'Campus with Premium Amenities',
+      icon: (
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M7 20c8 0 14-6 14-14v-1h-1C12 5 6 11 6 19v1h1Z"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M6 19c2-3 6-7 12-11"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: 'State-of-Art',
+      description: 'Classrooms & Labs',
+      icon: (
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M4 19V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M4 19h16"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M8 9h8"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: 'Independent',
+      description: (
+        <>
+          Boarding for Boys{' '}
+          <span className="text-[10px] sm:text-xs text-red-600 font-semibold">
+            (Boys Only)
+          </span>
+        </>
+      ),
+      icon: (
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M7 21v-4a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v4"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"
+            stroke="currentColor"
+            strokeWidth="2"
+          />
+        </svg>
+      ),
+    },
+    {
+      title: 'Culture Inclusive',
+      description: 'Modern Campus',
+      icon: (
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M12 22s8-4 8-10V6l-8-4-8 4v6c0 6 8 10 8 10Z"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M9 12l2 2 4-4"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      ),
+    },
+  ]
+
   return (
     <section id="virtual" className="py-10 md:py-10 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -48,39 +146,23 @@ const VirtualExperience = () => {
           </div>
 
           {/* Four Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10">
-            <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
-              <h3 className="font-bold text-primary mb-2 text-xl">
-                Lush Green
-              </h3>
-              <p className="text-sm text-gray-600">
-                Campus with Premium Amenities
-              </p>
-            </div>
-            <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
-              <h3 className="font-bold text-primary mb-2 text-xl">
-                State-of-Art
-              </h3>
-              <p className="text-sm text-gray-600">
-                Classrooms & Labs
-              </p>
-            </div>
-            <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
-              <h3 className="font-bold text-primary mb-2 text-xl">
-                Independent
-              </h3>
-              <p className="text-sm text-gray-600">
-                Boarding for Boys <span className="text-xs text-red-600 font-semibold">(Boys Only)</span>
-              </p>
-            </div>
-            <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100 text-center">
-              <h3 className="font-bold text-primary mb-2 text-xl">
-                Culture Inclusive
-              </h3>
-              <p className="text-sm text-gray-600">
-                Modern Campus
-              </p>
-            </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-10">
+            {features.map((feature) => (
+              <div
+                key={feature.title}
+                className="group bg-gradient-to-br from-white to-primary/5 rounded-2xl p-4 sm:p-6 shadow-sm hover:shadow-xl border border-gray-100/80 hover:border-primary/20 transition-all duration-300 text-center flex flex-col items-center justify-between min-h-[140px] sm:min-h-[160px] md:min-h-[180px] md:hover:-translate-y-1"
+              >
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-3 sm:mb-4 group-hover:bg-primary/15 transition-colors">
+                  {feature.icon}
+                </div>
+                <h3 className="font-extrabold text-primary mb-1.5 text-base sm:text-lg md:text-xl leading-tight">
+                  {feature.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-gray-600 leading-snug">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
           </div>
 
           {/* Button and Footer Text */}

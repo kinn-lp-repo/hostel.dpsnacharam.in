@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 const ExploreOurSchool = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isDragging, setIsDragging] = useState(false)
   const [startX, setStartX] = useState(0)
+  const [isHovering, setIsHovering] = useState(false)
+  const [isTransitionEnabled, setIsTransitionEnabled] = useState(true)
+  const autoplayRef = useRef(null)
 
   const cards = [
     {
@@ -328,15 +331,27 @@ const ExploreOurSchool = () => {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  const maxIndex = Math.max(0, cards.length - cardsPerView)
+  // Build a seamless track by cloning the first "cardsPerView" items at the end.
+  const trackCards = useMemo(() => {
+    const clones = cards.slice(0, Math.min(cardsPerView, cards.length))
+    return [...cards, ...clones]
+  }, [cards, cardsPerView])
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % cards.length)
-  }
+  // Autoplay (pauses on hover or while dragging)
+  useEffect(() => {
+    if (autoplayRef.current) clearInterval(autoplayRef.current)
 
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + cards.length) % cards.length)
-  }
+    const shouldPause = isHovering || isDragging
+    if (shouldPause) return
+
+    autoplayRef.current = setInterval(() => {
+      setCurrentIndex((prev) => prev + 1)
+    }, 3500)
+
+    return () => {
+      if (autoplayRef.current) clearInterval(autoplayRef.current)
+    }
+  }, [isHovering, isDragging])
 
   // Drag handlers
   const handleMouseDown = (e) => {
@@ -353,12 +368,12 @@ const ExploreOurSchool = () => {
     
     if (Math.abs(walk) > threshold) {
       if (walk > 0) {
-        // Swipe right - go to previous (loop)
-        setCurrentIndex((prev) => (prev - 1 + cards.length) % cards.length)
+        // Swipe right - go to previous
+        setCurrentIndex((prev) => prev - 1)
         setIsDragging(false)
       } else {
-        // Swipe left - go to next (loop)
-        setCurrentIndex((prev) => (prev + 1) % cards.length)
+        // Swipe left - go to next
+        setCurrentIndex((prev) => prev + 1)
         setIsDragging(false)
       }
     }
@@ -386,12 +401,12 @@ const ExploreOurSchool = () => {
     
     if (Math.abs(walk) > threshold) {
       if (walk > 0) {
-        // Swipe right - go to previous (loop)
-        setCurrentIndex((prev) => (prev - 1 + cards.length) % cards.length)
+        // Swipe right - go to previous
+        setCurrentIndex((prev) => prev - 1)
         setIsDragging(false)
       } else {
-        // Swipe left - go to next (loop)
-        setCurrentIndex((prev) => (prev + 1) % cards.length)
+        // Swipe left - go to next
+        setCurrentIndex((prev) => prev + 1)
         setIsDragging(false)
       }
     }
@@ -401,17 +416,18 @@ const ExploreOurSchool = () => {
     setIsDragging(false)
   }
 
-  // Get visible cards with looping support
-  const getVisibleCards = () => {
-    const visible = []
-    for (let i = 0; i < cardsPerView; i++) {
-      const index = (currentIndex + i) % cards.length
-      visible.push(cards[index])
+  // Keep index in a safe range for prev navigation; forward looping is handled by clones + transition-end jump.
+  useEffect(() => {
+    if (currentIndex < 0) {
+      // Jump to the equivalent position near the end (before the clone region)
+      setIsTransitionEnabled(false)
+      setCurrentIndex(cards.length - 1)
+      requestAnimationFrame(() => setIsTransitionEnabled(true))
     }
-    return visible
-  }
+  }, [currentIndex, cards.length])
 
-  const visibleCards = getVisibleCards()
+  const activeDotIndex = ((currentIndex % cards.length) + cards.length) % cards.length
+  const slidePercent = 100 / cardsPerView
 
   return (
     <section id="explore" className="py-16 md:py-14 bg-white relative">
@@ -436,9 +452,9 @@ const ExploreOurSchool = () => {
 
         {/* Carousel Container */}
         <div className="relative">
-          {/* Cards Grid - Draggable */}
-          <div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-hidden transition-all duration-300 select-none"
+          {/* Carousel Track (autoplay + swipe) */}
+          <div
+            className="overflow-hidden select-none"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
@@ -446,76 +462,90 @@ const ExploreOurSchool = () => {
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeaveCapture={() => setIsHovering(false)}
             style={{ 
               cursor: isDragging ? 'grabbing' : 'grab',
               userSelect: 'none',
               WebkitUserSelect: 'none'
             }}
           >
-            {visibleCards.map((card) => (
-              <div
-                key={card.id}
-                className="relative rounded-2xl overflow-hidden group"
-              >
-                {/* Card Image */}
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={card.image}
-                    alt={card.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                  
-                  {/* Icon Badge */}
-                  <div className="absolute top-4 left-4 w-12 h-12 bg-white rounded-full border-2 border-[#155b2e] flex items-center justify-center text-[#155b2e] z-10 group-hover:opacity-0 transition-opacity duration-300">
-                    {card.icon}
-                  </div>
+            <div
+              className={`flex ${isTransitionEnabled ? 'transition-transform duration-500 ease-out' : ''}`}
+              style={{ transform: `translateX(-${currentIndex * slidePercent}%)` }}
+              onTransitionEnd={() => {
+                // When we reach the clone region, jump back to the real start without visual jump.
+                if (currentIndex >= cards.length) {
+                  setIsTransitionEnabled(false)
+                  setCurrentIndex(0)
+                  requestAnimationFrame(() => setIsTransitionEnabled(true))
+                }
+              }}
+            >
+              {trackCards.map((card, idx) => (
+                <div
+                  key={`${card.id}-${idx}`}
+                  className="px-3"
+                  style={{ flex: `0 0 ${slidePercent}%` }}
+                >
+                  <div className="relative rounded-2xl overflow-hidden group">
+                    {/* Card Image */}
+                    <div className="relative h-64 overflow-hidden">
+                      <img
+                        src={card.image}
+                        alt={card.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-[#155b2e]/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex flex-col items-center justify-center p-6">
-                    <div className="text-white text-center">
-                      <h3 className="text-xl font-bold mb-4">{card.title}</h3>
-                      <ul className="space-y-1.8 text-sm md:text-base text-left max-h-48 overflow-y-auto">
-                        {card.hoverContent?.map((item, index) => (
-                          <li key={index} className="flex items-start gap-2">
-                            <span className="text-white/90 mt-1.5 flex-shrink-0">•</span>
-                            <span className="text-white/95 font-medium leading-relaxed">{item}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      {/* Icon Badge */}
+                      <div className="absolute top-4 left-4 w-12 h-12 bg-white rounded-full border-2 border-[#155b2e] flex items-center justify-center text-[#155b2e] z-10 group-hover:opacity-0 transition-opacity duration-300">
+                        {card.icon}
+                      </div>
+
+                      {/* Hover Overlay */}
+                      <div className="absolute inset-0 bg-[#155b2e]/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex flex-col items-center justify-center p-6">
+                        <div className="text-white text-center">
+                          <h3 className="text-xl font-bold mb-4">{card.title}</h3>
+                          <ul className="space-y-1.8 text-sm md:text-base text-left max-h-48 overflow-y-auto">
+                            {card.hoverContent?.map((item, index) => (
+                              <li key={index} className="flex items-start gap-2">
+                                <span className="text-white/90 mt-1.5 flex-shrink-0">•</span>
+                                <span className="text-white/95 font-medium leading-relaxed">{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Card Content - Hidden on hover */}
+                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white z-10 group-hover:opacity-0 transition-opacity duration-300">
+                      <h3 className="text-xl font-bold mb-2">{card.title}</h3>
+                      <p className="text-sm text-white/90">{card.description}</p>
                     </div>
                   </div>
                 </div>
-
-                {/* Card Content - Hidden on hover */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white z-10 group-hover:opacity-0 transition-opacity duration-300">
-                  <h3 className="text-xl font-bold mb-2">{card.title}</h3>
-                  <p className="text-sm text-white/90">{card.description}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           {/* Dot Indicators - One per card */}
           <div className="flex justify-center items-center gap-2 mt-8">
             {cards.map((card, index) => {
-              // Check if this card is currently visible (works with looping)
-              const isVisible = visibleCards.some(visibleCard => visibleCard.id === card.id)
-              // Check if this card is the first visible card (active)
-              const isActive = index === currentIndex
+              const isActive = index === activeDotIndex
               
               return (
                 <button
                   key={card.id}
                   onClick={() => {
                     // Navigate to show this card as the first visible card
+                    setIsTransitionEnabled(true)
                     setCurrentIndex(index)
                   }}
                   className={`transition-all duration-300 rounded-full cursor-pointer ${
                     isActive
                       ? 'w-3 h-3 bg-[#155b2e]'
-                      : isVisible
-                      ? 'w-2.5 h-2.5 bg-[#155b2e]/50'
                       : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'
                   }`}
                   aria-label={`Go to ${card.title}`}
