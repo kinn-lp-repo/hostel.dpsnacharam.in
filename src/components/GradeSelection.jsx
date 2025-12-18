@@ -87,7 +87,7 @@ const GradeSelection = () => {
                   <h3 className="text-xl font-bold text-black mb-2">{grade.title}</h3>
                   <p className="text-base font-semibold text-primary mb-3">{grade.gradeRange}</p>
                   <p className="text-sm text-gray-700 mb-5 leading-relaxed">{grade.description}</p>
-                  <button className="w-full bg-white border-2 border-gray-300 text-gray-800 px-4 py-2.5 rounded-lg font-semibold text-sm hover:border-primary hover:text-primary transition-colors">
+                  <button className="w-full bg-white border-2 border-gray-300 text-gray-800 px-4 py-2.5 rounded-lg font-semibold text-sm hover:border-primary hover:text-primary transition-colors cursor-pointer">
                     View Full Details
                   </button>
                 </div>
@@ -100,7 +100,7 @@ const GradeSelection = () => {
             <p className="text-xl text-gray-700 mb-6">
               Still unsure which grade level is right for your son? (Hostel available for Grades 5-12, Boys only)
             </p>
-            <button className="bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-opacity-90 transition-colors shadow-lg flex items-center gap-2 mx-auto">
+            <button className="bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-opacity-90 transition-colors shadow-lg flex items-center gap-2 mx-auto cursor-pointer">
               Schedule a Personal Consultation
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

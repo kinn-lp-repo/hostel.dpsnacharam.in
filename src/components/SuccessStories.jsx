@@ -230,7 +230,7 @@ const SuccessStories = () => {
             {/* Desktop Navigation Arrows */}
             <button
               onClick={prevSlide}
-              className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white hover:bg-gray-50 shadow-lg text-gray-700 flex items-center justify-center transition-all duration-200 hover:scale-110 z-20 border border-gray-200"
+              className="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white hover:bg-gray-50 shadow-lg text-gray-700 flex items-center justify-center transition-all duration-200 hover:scale-110 z-20 border border-gray-200 cursor-pointer"
               aria-label="Previous story"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -239,7 +239,7 @@ const SuccessStories = () => {
             </button>
             <button
               onClick={nextSlide}
-              className="absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white hover:bg-gray-50 shadow-lg text-gray-700 flex items-center justify-center transition-all duration-200 hover:scale-110 z-20 border border-gray-200"
+              className="absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white hover:bg-gray-50 shadow-lg text-gray-700 flex items-center justify-center transition-all duration-200 hover:scale-110 z-20 border border-gray-200 cursor-pointer"
               aria-label="Next story"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

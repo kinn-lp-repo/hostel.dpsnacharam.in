@@ -1,153 +1,102 @@
-const Footer = () => {
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
+import { trackPhoneClick, trackEmailClick } from '../utils/gtmEvents'
 
+const Footer = () => {
   return (
-    <footer className="bg-gray-50 text-gray-800 py-12">
+    <footer className="bg-gray-900 text-gray-200 py-8">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {/* Column 1: Delhi Public School Nacharam */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Column 1: School Logo and Info */}
           <div>
-            <h3 className="text-gray-900 font-bold text-xl mb-4">Delhi Public School Nacharam</h3>
-            <p className="text-gray-600 text-sm mb-6 leading-relaxed">
-              India's first career-oriented boarding school, transforming education through holistic development and real-world preparation.
+            <div className="flex items-center gap-3 mb-3">
+              {/* Logo */}
+              <img 
+                src="/hostel/dps-emblum.webp" 
+                alt="Delhi Public School Nacharam Logo" 
+                className="w-12 h-12 object-contain flex-shrink-0"
+              />
+              <div>
+                <h3 className="text-white font-bold text-base">DELHI PUBLIC SCHOOL</h3>
+                <p className="text-gray-300 text-xs">NACHARAM</p>
+              </div>
+            </div>
+            
+            <p className="text-sm text-gray-300 leading-relaxed">
+              The Best School in Hyderabad, is nurturing dreams and is committed to achieve their highest potential.
             </p>
-            <div className="space-y-3 text-sm text-gray-700">
-              <div className="flex items-start gap-3">
-                <svg className="w-5 h-5 text-gray-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </div>
+
+          {/* Column 2: Contact Us */}
+          <div>
+            <h4 className="text-white font-bold text-lg mb-4">Contact Us</h4>
+            <div className="space-y-3 text-sm">
+              <div className="flex items-center gap-3">
+                <svg className="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                <span className="leading-relaxed">
-                  Bairegowdanahalli Bus Stop, Venkatapura, Sondekoppa Main Rd, Nelamangala Town, Karnataka 562123
+                <a 
+                  href="tel:1800212999999" 
+                  onClick={() => trackPhoneClick('1800212999999', 'Landline: 1800 212 999999')}
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  Landline: 1800 212 999999
+                </a>
+              </div>
+              <div className="flex items-center gap-3">
+                <svg className="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                <span className="text-gray-300">
+                  Mobile:{' '}
+                  <a 
+                    href="tel:7670900348" 
+                    onClick={() => trackPhoneClick('7670900348', 'Mobile: 7670900348')}
+                    className="hover:text-white transition-colors"
+                  >
+                    7670900348
+                  </a>
+                  {' '},{' '}
+                  <a 
+                    href="tel:9100975725" 
+                    onClick={() => trackPhoneClick('9100975725', 'Mobile: 9100975725')}
+                    className="hover:text-white transition-colors"
+                  >
+                    9100975725
+                  </a>
                 </span>
               </div>
               <div className="flex items-center gap-3">
-                <svg className="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                <span>080-47092273</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <svg className="w-5 h-5 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-gray-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                <span>admissions@theacademiccity.com</span>
+                <a 
+                  href="mailto:admission@dpssecunderabad.in" 
+                  onClick={() => trackEmailClick('admission@dpssecunderabad.in', 'admission@dpssecunderabad.in')}
+                  className="text-gray-300 hover:text-white transition-colors"
+                >
+                  admission@dpssecunderabad.in
+                </a>
               </div>
             </div>
           </div>
 
-          {/* Column 2: Quick Links */}
+          {/* Column 3: Address */}
           <div>
-            <h4 className="text-gray-900 font-bold text-xl mb-4">Quick Links</h4>
-            <ul className="space-y-3 text-sm">
-              <li>
-                <button
-                  onClick={() => scrollToSection('explore')}
-                  className="text-gray-700 hover:text-gray-900 transition-colors"
-                >
-                  About Us
-                </button>
-              </li>
-              <li>
-                <a href="#" className="text-gray-700 hover:text-gray-900 transition-colors">
-                  Admissions
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-gray-700 hover:text-gray-900 transition-colors">
-                  Academic Programs
-                </a>
-              </li>
-              <li>
-                <button
-                  onClick={() => scrollToSection('explore')}
-                  className="text-gray-700 hover:text-gray-900 transition-colors"
-                >
-                  Campus Life
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => scrollToSection('career')}
-                  className="text-gray-700 hover:text-gray-900 transition-colors"
-                >
-                  Career Preparation
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => scrollToSection('explore')}
-                  className="text-gray-700 hover:text-gray-900 transition-colors"
-                >
-                  Gallery
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 3: Connect With Us */}
-          <div>
-            <h4 className="text-gray-900 font-bold text-xl mb-4">Connect With Us</h4>
-            <p className="text-gray-600 text-sm mb-6">
-              Stay updated with our latest news and events
-            </p>
-            <div className="flex gap-4 mb-6">
-              {/* Facebook */}
-              <a 
-                href="#" 
-                className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-                aria-label="Facebook"
-              >
-                <svg className="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-              </a>
-              {/* Instagram */}
-              <a 
-                href="#" 
-                className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-                aria-label="Instagram"
-              >
-                <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-              </a>
-              {/* LinkedIn */}
-              <a 
-                href="#" 
-                className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-                aria-label="LinkedIn"
-              >
-                <svg className="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                </svg>
-              </a>
-              {/* YouTube */}
-              <a 
-                href="#" 
-                className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-                aria-label="YouTube"
-              >
-                <svg className="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-              </a>
+            <div className="flex items-start gap-3">
+              <svg className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              <p className="text-sm text-gray-300 leading-relaxed">
+                Plot No.44, Uppal Mandal, 42A, behind BSNL Telephone exchange, Durga Nagar, Nacharam, Hyderabad, Secunderabad, Telangana 500076
+              </p>
             </div>
-            <button className="w-full bg-green-800 hover:bg-green-900 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
-              Subscribe to Newsletter
-            </button>
           </div>
         </div>
         
         {/* Copyright */}
-        <div className="border-t border-gray-200 mt-12 pt-8">
-          <p className="text-center text-sm text-gray-600">
-            © 2025 Delhi Public School, Nacharam. All rights reserved.
+        <div className="border-t border-gray-700 mt-8 pt-6">
+          <p className="text-center text-xs text-gray-500">
+            © 2025 DELHI PUBLIC SCHOOL, NACHARAM. ALL RIGHTS RESERVED
           </p>
         </div>
       </div>

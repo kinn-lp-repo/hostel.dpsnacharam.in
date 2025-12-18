@@ -102,7 +102,7 @@ const CareerPreparation = () => {
 
             {/* Circular Plus Button */}
             <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 hidden lg:block">
-              <button className="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-xl border-2 border-gray-200">
+              <button className="w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-xl border-2 border-gray-200 cursor-pointer">
                 <svg className="w-7 h-7 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" />
                 </svg>

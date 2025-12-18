@@ -511,7 +511,7 @@ const ExploreOurSchool = () => {
                     // Navigate to show this card as the first visible card
                     setCurrentIndex(index)
                   }}
-                  className={`transition-all duration-300 rounded-full ${
+                  className={`transition-all duration-300 rounded-full cursor-pointer ${
                     isActive
                       ? 'w-3 h-3 bg-[#155b2e]'
                       : isVisible
