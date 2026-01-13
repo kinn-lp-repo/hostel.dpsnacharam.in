@@ -11,7 +11,8 @@ const Hero = () => {
     countryCode: '+91',
     mobile: '',
     curriculum: '',
-    admissionType: '',
+    admissionType: 'Hostel',
+    gender: '',
     grades: '',
     schoolName: 'DPS Nacharam'
   })
@@ -24,11 +25,11 @@ const Hero = () => {
 
   // Check if form is valid (all required fields filled and no errors)
   const isFormValid = () => {
-    const { studentName, parentName, email, mobile, curriculum, grades } = formData
+    const { studentName, parentName, email, mobile, curriculum, gender, grades } = formData
     
     // Check all required fields are filled
     if (!studentName.trim() || !parentName.trim() || !email.trim() || 
-        !mobile.trim() || !curriculum || !grades) {
+        !mobile.trim() || !curriculum || !gender || !grades) {
       return false
     }
     
@@ -45,8 +46,9 @@ const Hero = () => {
     return true
   }
 
-  // Grade data arrays (hostel only for this landing page)
-  const cbseHostelGrades = [
+  // Grade data arrays by gender and curriculum (hostel only for this landing page)
+  // Male grades
+  const cbseHostelGradesMale = [
     { id: "465", name: "Grade 5" },
     { id: "16", name: "Grade 6" },
     { id: "17", name: "Grade 7" },
@@ -57,8 +59,29 @@ const Hero = () => {
     { id: "22", name: "Grade 12" },
   ]
 
-  const cambridgeHostelGrades = [
+  const cambridgeHostelGradesMale = [
     { id: "456", name: "Grade 5" },
+    { id: "38", name: "Grade 6" },
+    { id: "39", name: "Grade 7" },
+    { id: "40", name: "Grade 8" },
+    { id: "41", name: "Grade 9" },
+    { id: "42", name: "Grade 10" },
+    { id: "43", name: "Grade 11" },
+    { id: "44", name: "Grade 12" },
+  ]
+
+  // Female grades (update these IDs if different for females)
+  const cbseHostelGradesFemale = [
+    { id: "16", name: "Grade 6" },
+    { id: "17", name: "Grade 7" },
+    { id: "18", name: "Grade 8" },
+    { id: "19", name: "Grade 9" },
+    { id: "20", name: "Grade 10" },
+    { id: "21", name: "Grade 11" },
+    { id: "22", name: "Grade 12" },
+  ]
+
+  const cambridgeHostelGradesFemale = [
     { id: "38", name: "Grade 6" },
     { id: "39", name: "Grade 7" },
     { id: "40", name: "Grade 8" },
@@ -81,8 +104,14 @@ const Hero = () => {
   }
 
   const admissionTypeValueMapping = {
+    "Hostel": "Hostel",
     "2": "Hostel(Only for Boys)",
     "4": "Hostel(Only for Boys)"
+  }
+
+  const genderValueMapping = {
+    "1": "Male",
+    "2": "Female"
   }
 
   const gradeValueMapping = {
@@ -101,22 +130,35 @@ const Hero = () => {
     return ''
   }
 
-  // Update grades when curriculum changes
+  // Update grades when curriculum or gender changes
   useEffect(() => {
-    if (formData.curriculum) {
+    if (formData.curriculum && formData.gender) {
       const admissionTypeId = admissionTypeMapping[formData.curriculum]
-      setFormData(prev => ({ ...prev, admissionType: admissionTypeId, grades: '' }))
+      setFormData(prev => ({ ...prev, admissionType: admissionTypeId || 'Hostel', grades: '' }))
       
+      // Determine grades based on both curriculum and gender
       if (formData.curriculum === "1") {
-        setAvailableGrades(cbseHostelGrades)
+        // CBSE
+        if (formData.gender === "1") {
+          setAvailableGrades(cbseHostelGradesMale)
+        } else if (formData.gender === "2") {
+          setAvailableGrades(cbseHostelGradesFemale)
+        }
       } else if (formData.curriculum === "2") {
-        setAvailableGrades(cambridgeHostelGrades)
+        // Cambridge
+        if (formData.gender === "1") {
+          setAvailableGrades(cambridgeHostelGradesMale)
+        } else if (formData.gender === "2") {
+          setAvailableGrades(cambridgeHostelGradesFemale)
+        }
       }
     } else {
       setAvailableGrades([])
-      setFormData(prev => ({ ...prev, admissionType: '', grades: '' }))
+      if (!formData.curriculum || !formData.gender) {
+        setFormData(prev => ({ ...prev, grades: '' }))
+      }
     }
-  }, [formData.curriculum])
+  }, [formData.curriculum, formData.gender])
 
   // Get all countries with their codes and flags
   const getCountryCodes = () => {
@@ -190,6 +232,11 @@ const Hero = () => {
       case 'curriculum':
         if (!value) {
           error = 'Please select a curriculum'
+        }
+        break
+      case 'gender':
+        if (!value) {
+          error = 'Please select a gender'
         }
         break
       case 'grades':
@@ -320,6 +367,7 @@ const Hero = () => {
     const curriculumId = formData.curriculum
     const admissionTypeId = formData.admissionType
     const gradeId = formData.grades
+    const genderId = formData.gender
 
     // Data for EE API (with IDs)
     const eeData = {
@@ -337,6 +385,7 @@ const Hero = () => {
       source: "dps-pgos",
       AuthToken: "dps-pgos_27-10-2024",
       schoolName: formData.schoolName,
+      gender: genderId,
     }
 
     // Data for n8n API (with values instead of IDs)
@@ -348,6 +397,7 @@ const Hero = () => {
       curriculum: curriculumValueMapping[curriculumId] || curriculumId,
       admissionType: admissionTypeValueMapping[admissionTypeId] || admissionTypeId,
       grade: gradeValueMapping[gradeId] || gradeId,
+      gender: genderValueMapping[genderId] || genderId,
       schoolName: formData.schoolName,
       location: "",
       Textb3: getURLParameter('gclid'),
@@ -392,6 +442,7 @@ const Hero = () => {
           curriculum: curriculumValueMapping[curriculumId] || curriculumId,
           admissionType: admissionTypeValueMapping[admissionTypeId] || admissionTypeId,
           grade: gradeValueMapping[gradeId] || gradeId,
+          gender: genderValueMapping[genderId] || genderId,
           schoolName: formData.schoolName
         }, 'hostel-enquiry-form')
         
@@ -403,7 +454,8 @@ const Hero = () => {
           countryCode: '+91',
           mobile: '',
           curriculum: '',
-          admissionType: '',
+          admissionType: 'Hostel',
+          gender: '',
           grades: '',
           schoolName: 'DPS Nacharam'
         })
@@ -576,7 +628,7 @@ const Hero = () => {
                           ? "Tell us who you're enquiring for."
                           : mobileStep === 2
                             ? "Where should we reach you?"
-                            : "Choose curriculum and grade."}
+                            : "Choose gender, curriculum and grade."}
                       </p>
                     </div>
 
@@ -740,6 +792,36 @@ const Hero = () => {
 
                   {mobileStep === 3 && (
                     <>
+                      {/* Gender */}
+                      <div>
+                        <label className="block text-xs font-medium text-gray-700 mb-1">
+                          Select Gender <span className="text-red-500">*</span>
+                        </label>
+                        <select
+                          name="gender"
+                          value={formData.gender}
+                          onChange={(e) => {
+                            const { name, value } = e.target
+                            setFormData(prev => ({ ...prev, [name]: value }))
+                            if (touched[name]) {
+                              const error = validateField(name, value)
+                              setErrors(prev => ({ ...prev, [name]: error }))
+                            }
+                          }}
+                          onBlur={handleBlur}
+                          className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
+                            errors.gender ? 'border-red-500' : 'border-gray-300'
+                          }`}
+                        >
+                          <option value="">Select Gender</option>
+                          <option value="1">Male</option>
+                          <option value="2">Female</option>
+                        </select>
+                        {errors.gender && (
+                          <p className="mt-1 text-sm text-red-500">{errors.gender}</p>
+                        )}
+                      </div>
+
                       {/* Curriculum */}
                       <div>
                         <label className="block text-xs font-medium text-gray-700 mb-1">
@@ -780,10 +862,10 @@ const Hero = () => {
                           value={formData.grades}
                           onChange={handleInputChange}
                           onBlur={handleBlur}
-                          disabled={!formData.curriculum}
+                          disabled={!formData.curriculum || !formData.gender}
                           className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
                             errors.grades ? 'border-red-500' : 'border-gray-300'
-                          } ${!formData.curriculum ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+                          } ${!formData.curriculum || !formData.gender ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                         >
                           <option value="">Select grade</option>
                           {availableGrades.map((grade) => (
@@ -991,34 +1073,67 @@ const Hero = () => {
                   )}
                 </div>
 
-                {/* Curriculum */}
-                <div>
-                    <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
-                    Curriculum <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="curriculum"
-                    value={formData.curriculum}
-                    onChange={(e) => {
-                      const { name, value } = e.target
-                      setFormData(prev => ({ ...prev, [name]: value }))
-                      if (touched[name]) {
-                        const error = validateField(name, value)
-                        setErrors(prev => ({ ...prev, [name]: error }))
-                      }
-                    }}
-                    onBlur={handleBlur}
-                      className={`w-full px-3 sm:px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
-                      errors.curriculum ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                  >
-                    <option value="">Select curriculum</option>
-                    <option value="1">CBSE</option>
-                    <option value="2">Cambridge</option>
-                  </select>
-                  {errors.curriculum && (
-                    <p className="mt-1 text-sm text-red-500">{errors.curriculum}</p>
-                  )}
+                {/* Gender and Curriculum in one row */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                  {/* Gender */}
+                  <div>
+                      <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+                      Select Gender <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      name="gender"
+                      value={formData.gender}
+                      onChange={(e) => {
+                        const { name, value } = e.target
+                        setFormData(prev => ({ ...prev, [name]: value }))
+                        if (touched[name]) {
+                          const error = validateField(name, value)
+                          setErrors(prev => ({ ...prev, [name]: error }))
+                        }
+                      }}
+                      onBlur={handleBlur}
+                        className={`w-full px-3 sm:px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
+                        errors.gender ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="1">Male</option>
+                      <option value="2">Female</option>
+                    </select>
+                    {errors.gender && (
+                      <p className="mt-1 text-sm text-red-500">{errors.gender}</p>
+                    )}
+                  </div>
+
+                  {/* Curriculum */}
+                  <div>
+                      <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+                      Curriculum <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      name="curriculum"
+                      value={formData.curriculum}
+                      onChange={(e) => {
+                        const { name, value } = e.target
+                        setFormData(prev => ({ ...prev, [name]: value }))
+                        if (touched[name]) {
+                          const error = validateField(name, value)
+                          setErrors(prev => ({ ...prev, [name]: error }))
+                        }
+                      }}
+                      onBlur={handleBlur}
+                        className={`w-full px-3 sm:px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
+                        errors.curriculum ? 'border-red-500' : 'border-gray-300'
+                      }`}
+                    >
+                      <option value="">Select curriculum</option>
+                      <option value="1">CBSE</option>
+                      <option value="2">Cambridge</option>
+                    </select>
+                    {errors.curriculum && (
+                      <p className="mt-1 text-sm text-red-500">{errors.curriculum}</p>
+                    )}
+                  </div>
                 </div>
 
                 {/* Admission Type - Hidden */}
@@ -1038,10 +1153,10 @@ const Hero = () => {
                     value={formData.grades}
                     onChange={handleInputChange}
                     onBlur={handleBlur}
-                    disabled={!formData.curriculum}
+                    disabled={!formData.curriculum || !formData.gender}
                       className={`w-full px-3 sm:px-4 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
                       errors.grades ? 'border-red-500' : 'border-gray-300'
-                    } ${!formData.curriculum ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+                    } ${!formData.curriculum || !formData.gender ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                   >
                     <option value="">Select grade</option>
                     {availableGrades.map((grade) => (
