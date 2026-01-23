@@ -52,10 +52,10 @@ const GradeSelection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-black mb-4">
-            Which Grade Is Your Son Applying For?
+            Which Grade Is Your Child Applying For?
           </h2>
           <p className="text-lg md:text-xl text-gray-700 max-w-3xl mx-auto mb-4">
-            Hostel admissions are open for boys from Grade 5 to Grade 12. See exactly what your son will experience, learn, and achieve at each grade level in our residential program.
+            Hostel admissions are open for boys (Grade 5-12) and girls (Grade 6-12). See exactly what your child will experience, learn, and achieve at each grade level in our residential program.
           </p>
           <p className="text-base text-primary max-w-2xl mx-auto font-semibold">
             Click below to explore curriculum, facilities, and success outcomes →
@@ -98,7 +98,7 @@ const GradeSelection = () => {
           {/* Footer Call to Action */}
           <div className="text-center">
             <p className="text-xl text-gray-700 mb-6">
-              Still unsure which grade level is right for your son? (Hostel available for Grades 5-12, Boys only)
+              Still unsure which grade level is right for your child? (Boys: Grade 5-12, Girls: Grade 6-12)
             </p>
             <button className="bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-opacity-90 transition-colors shadow-lg flex items-center gap-2 mx-auto cursor-pointer">
               Schedule a Personal Consultation

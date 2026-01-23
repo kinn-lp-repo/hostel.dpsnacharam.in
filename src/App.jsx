@@ -3,6 +3,7 @@ import Preloader from './components/Preloader'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import ExploreOurSchool from './components/ExploreOurSchool'
+import SafetyMeasures from './components/SafetyMeasures'
 import VirtualExperience from './components/VirtualExperience'
 import GradeSelection from './components/GradeSelection'
 import SuccessStories from './components/SuccessStories'
@@ -24,6 +25,7 @@ function App() {
       <main>
         <Hero />
         <ExploreOurSchool />
+        <SafetyMeasures />
         <VibrantCampus />
         <CareerPreparation />
         {/* <GradeSelection /> */}

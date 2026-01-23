@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { getCountries, getCountryCallingCode } from 'libphonenumber-js'
 import { getName } from 'country-list'
 import { trackFormSubmit } from '../utils/gtmEvents'
@@ -80,13 +80,13 @@ const Hero = () => {
   // Check if form is valid (all required fields filled and no errors)
   const isFormValid = () => {
     const { studentName, parentName, email, mobile, curriculum, admissionType, grades } = formData
-    
+
     // Check all required fields are filled
-    if (!studentName.trim() || !parentName.trim() || !email.trim() || 
-        !mobile.trim() || !curriculum || !admissionType || !grades) {
+    if (!studentName.trim() || !parentName.trim() || !email.trim() ||
+      !mobile.trim() || !curriculum || !admissionType || !grades) {
       return false
     }
-    
+
     // Check email format and domain
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return false
@@ -94,12 +94,12 @@ const Hero = () => {
     if (!isValidEmailDomain(email)) {
       return false
     }
-    
+
     // Check mobile is 10 digits starting with 6-9
     if (!/^[6-9]\d{9}$/.test(mobile)) {
       return false
     }
-    
+
     return true
   }
 
@@ -286,13 +286,13 @@ const Hero = () => {
   const getCountryCodes = () => {
     const allCountries = getCountries()
     const countryList = []
-    
+
     allCountries.forEach((countryCode) => {
       try {
         const phoneCode = getCountryCallingCode(countryCode)
         const countryName = getName(countryCode) || countryCode
         const flag = getFlagEmoji(countryCode)
-        
+
         countryList.push({
           code: `+${phoneCode}`,
           country: countryName,
@@ -303,7 +303,7 @@ const Hero = () => {
         // Skip countries that don't have phone codes
       }
     })
-    
+
     // Sort by country name
     return countryList.sort((a, b) => a.country.localeCompare(b.country))
   }
@@ -321,7 +321,7 @@ const Hero = () => {
 
   const validateField = (name, value) => {
     let error = ''
-    
+
     switch (name) {
       case 'studentName':
         if (!value.trim()) {
@@ -371,7 +371,7 @@ const Hero = () => {
       default:
         break
     }
-    
+
     return error
   }
 
@@ -448,7 +448,7 @@ const Hero = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    
+
     // Mark all fields as touched
     const allTouched = {}
     Object.keys(formData).forEach(key => {
@@ -491,7 +491,7 @@ const Hero = () => {
     const admissionTypeValue = formData.admissionType
     const admissionTypeId = getAdmissionTypeId(admissionTypeValue, curriculumId)
     const gradeId = formData.grades
-    
+
     // Derive gender from admission type
     let genderId = null
     if (admissionTypeValue === "Hostel (Girls)") {
@@ -518,7 +518,7 @@ const Hero = () => {
       AuthToken: "dps-pgos_27-10-2024",
       schoolName: formData.schoolName,
     }
-    
+
     // Only add Gender if it's a hostel option
     if (genderId) {
       eeData.Gender = genderId
@@ -539,7 +539,7 @@ const Hero = () => {
       leadMedium: getURLParameter('utm_medium'),
       leadCampaign: getURLParameter('utm_campaign')
     }
-    
+
     // Map admission type for n8n API
     if (admissionTypeValue === "Days Scholar") {
       n8nData.admissionType = "Day Scholar"
@@ -550,7 +550,7 @@ const Hero = () => {
     } else {
       n8nData.admissionType = admissionTypeValueMapping[admissionTypeId] || admissionTypeValue
     }
-    
+
     // Only add gender if it's a hostel option
     if (genderId) {
       n8nData.Gender = genderId
@@ -594,16 +594,16 @@ const Hero = () => {
           grade: gradeValueMapping[gradeId] || gradeId,
           schoolName: formData.schoolName
         }
-        
+
         // Only add gender if it's a hostel option
         if (admissionTypeValue === "Hostel (Girls)") {
           trackingData.gender = "Female"
         } else if (admissionTypeValue === "Hostel (Boys)") {
           trackingData.gender = "Male"
         }
-        
+
         trackFormSubmit(trackingData, 'hostel-enquiry-form')
-        
+
         // Reset the form
         setFormData({
           studentName: '',
@@ -620,7 +620,7 @@ const Hero = () => {
         setErrors({})
         setAvailableGrades([])
         setCurrentStep(1)
-        
+
         // Show success message
         showToast('Thank you! Your enquiry has been submitted successfully. We will contact you soon.', 'success')
       } else {
@@ -667,12 +667,12 @@ const Hero = () => {
             <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-tight">
               <span className="text-black">India's No. 1</span>
               <br />
-              <span className="text-primary">Career-Oriented Boys’ Boarding School</span>
+              <span className="text-primary">Career-Oriented Boarding School</span>
             </h1>
 
             {/* Description */}
             <p className="text-gray-600 text-base md:text-lg mb-8 leading-relaxed">
-              A modern boys’ residential campus in Nacharam, Hyderabad offering a focused, structured, and globally aligned living experience.
+              A modern Boarding campus in Nacharam, Hyderabad with separate hostels for boys and girls, offering a focused, structured, and globally aligned living experience.
             </p>
 
             {/* Schedule a Visit Button */}
@@ -688,65 +688,65 @@ const Hero = () => {
 
             {/* Hide this whole section on mobile */}
             <div className="hidden md:block">
-            {/* Key Features Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-12">
-              <div className="bg-gray-50 border-1 border-primary rounded-xl p-4">
-                <h3 className="text-2xl md:text-3xl font-bold text-primary mb-0.5">V - XII</h3>
-                <p className="text-sm font-semibold text-primary mb-1">Grades</p>
-            
-              </div>
-              <div className="bg-gray-50 border-1 border-primary rounded-xl p-4">
-                <h3 className="text-2xl md:text-3xl font-bold text-primary mb-0.5">CBSE & CIE</h3>
-                <p className="text-sm font-semibold text-primary mb-1">Affiliated</p>
-               
-              </div>
-              <div className="bg-gray-50 border-1 border-primary rounded-xl p-4">
-                <h3 className="text-2xl md:text-3xl font-bold text-primary mb-0.5">26+ Acres</h3>
-                <p className="text-sm font-semibold text-primary mb-1">Green Campus</p>
-               
-              </div>
-              <div className="bg-gray-50 border-1 border-primary rounded-xl p-4">
-                <h3 className="text-2xl md:text-3xl font-bold text-primary mb-0.5">100%</h3>
-                <p className="text-sm font-semibold text-primary mb-1">Residential</p>
-              </div>
-            </div>
+              {/* Key Features Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-12">
+                <div className="bg-gray-50 border-1 border-primary rounded-xl p-4">
+                  <h3 className="text-2xl md:text-3xl font-bold text-primary mb-0.5">V - XII</h3>
+                  <p className="text-sm font-semibold text-primary mb-1">Grades</p>
 
-            {/* Collaborations */}
-            <div className="mt-12">
-              <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-6 text-center">Collaberations</h2>
-              
-              {/* Award Badges - Top Row */}
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-                {/* Education Leaders Awards 2024 */}
-                <div className="bg-white border border-gray-200 rounded-xl p-6 flex flex-col items-center justify-center text-center">
-                  <div className="mb-3">
-                    <img 
-                      src="/collaberations/DELF - DALF logo.jpg" 
-                      alt="DELF - DALF logo"
-                      className="w-64 h-24 object-contain mx-auto"
-                    />
-                  </div>
                 </div>
+                <div className="bg-gray-50 border-1 border-primary rounded-xl p-4">
+                  <h3 className="text-2xl md:text-3xl font-bold text-primary mb-0.5">CBSE & CIE</h3>
+                  <p className="text-sm font-semibold text-primary mb-1">Affiliated</p>
 
-                {/* India Merit Awards */}
-                <div className="bg-white border border-gray-200 rounded-xl p-6 flex flex-col items-center justify-center text-center">
-                  <div className="mb-3">
-                    <img 
-                      src="/collaberations/DELF-logo.png" 
-                      alt="India Merit Awards"
-                      className="w-64 h-24 object-contain mx-auto"
-                    />
-                  </div>
                 </div>
+                <div className="bg-gray-50 border-1 border-primary rounded-xl p-4">
+                  <h3 className="text-2xl md:text-3xl font-bold text-primary mb-0.5">26+ Acres</h3>
+                  <p className="text-sm font-semibold text-primary mb-1">Green Campus</p>
 
-                {/* ISLE Awards 2022 */}
-                <div className="bg-white border border-gray-200 rounded-xl p-6 flex flex-col items-center justify-center text-center col-span-2 md:col-span-1">
-                  <div className="mb-3">
-                    <img 
-                      src="/collaberations/IBDP-logo.png" 
-                      alt="ISLE Awards 2022"
-                      className="w-64 h-24 object-contain mx-auto"
-                    />
+                </div>
+                <div className="bg-gray-50 border-1 border-primary rounded-xl p-4">
+                  <h3 className="text-2xl md:text-3xl font-bold text-primary mb-0.5">100%</h3>
+                  <p className="text-sm font-semibold text-primary mb-1">Residential</p>
+                </div>
+              </div>
+
+              {/* Collaborations */}
+              <div className="mt-12">
+                <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-6 text-center">Collaberations</h2>
+
+                {/* Award Badges - Top Row */}
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                  {/* Education Leaders Awards 2024 */}
+                  <div className="bg-white border border-gray-200 rounded-xl p-6 flex flex-col items-center justify-center text-center">
+                    <div className="mb-3">
+                      <img
+                        src="/collaberations/DELF - DALF logo.jpg"
+                        alt="DELF - DALF logo"
+                        className="w-64 h-24 object-contain mx-auto"
+                      />
+                    </div>
+                  </div>
+
+                  {/* India Merit Awards */}
+                  <div className="bg-white border border-gray-200 rounded-xl p-6 flex flex-col items-center justify-center text-center">
+                    <div className="mb-3">
+                      <img
+                        src="/collaberations/DELF-logo.png"
+                        alt="India Merit Awards"
+                        className="w-64 h-24 object-contain mx-auto"
+                      />
+                    </div>
+                  </div>
+
+                  {/* ISLE Awards 2022 */}
+                  <div className="bg-white border border-gray-200 rounded-xl p-6 flex flex-col items-center justify-center text-center col-span-2 md:col-span-1">
+                    <div className="mb-3">
+                      <img
+                        src="/collaberations/IBDP-logo.png"
+                        alt="ISLE Awards 2022"
+                        className="w-64 h-24 object-contain mx-auto"
+                      />
                     </div>
                   </div>
                 </div>
@@ -759,11 +759,11 @@ const Hero = () => {
             {/* Video */}
             <div className="mb-6 rounded-xl overflow-visible relative shadow-primary-rotated shadow-lg flex-shrink-0" style={{ paddingBottom: '56.25%', height: 0, boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)' }}>
               <div className="absolute inset-0 rounded-lg overflow-hidden">
-                <iframe 
-                  src="https://player.vimeo.com/video/858580926?autoplay=1&muted=1&controls=0&loop=1&h=56d13f71fe&badge=0&autopause=0&player_id=0&app_id=58479" 
-                  frameBorder="0" 
-                  allow="autoplay; fullscreen; picture-in-picture" 
-                  allowFullScreen 
+                <iframe
+                  src="https://player.vimeo.com/video/858580926?autoplay=1&muted=1&controls=0&loop=1&h=56d13f71fe&badge=0&autopause=0&player_id=0&app_id=58479"
+                  frameBorder="0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowFullScreen
                   style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                   title="Dps Webslide New"
                 />
@@ -810,78 +810,74 @@ const Hero = () => {
 
                   {currentStep === 1 && (
                     <>
-                {/* Student's Name */}
-                <div>
+                      {/* Student's Name */}
+                      <div>
                         <label className="block text-xs font-medium text-gray-700 mb-1">
-                    Student's Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="studentName"
-                    value={formData.studentName}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                    placeholder="Enter student's name"
-                          className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
-                      errors.studentName ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                  />
-                  {errors.studentName && (
-                    <p className="mt-1 text-sm text-red-500">{errors.studentName}</p>
-                  )}
-                </div>
+                          Student's Name <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          name="studentName"
+                          value={formData.studentName}
+                          onChange={handleInputChange}
+                          onBlur={handleBlur}
+                          placeholder="Enter student's name"
+                          className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${errors.studentName ? 'border-red-500' : 'border-gray-300'
+                            }`}
+                        />
+                        {errors.studentName && (
+                          <p className="mt-1 text-sm text-red-500">{errors.studentName}</p>
+                        )}
+                      </div>
 
-                {/* Parent Name */}
-                <div>
+                      {/* Parent Name */}
+                      <div>
                         <label className="block text-xs font-medium text-gray-700 mb-1">
-                    Parent Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="parentName"
-                    value={formData.parentName}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                    placeholder="Enter parent name"
-                          className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
-                      errors.parentName ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                  />
-                  {errors.parentName && (
-                    <p className="mt-1 text-sm text-red-500">{errors.parentName}</p>
-                  )}
-                </div>
+                          Parent Name <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          name="parentName"
+                          value={formData.parentName}
+                          onChange={handleInputChange}
+                          onBlur={handleBlur}
+                          placeholder="Enter parent name"
+                          className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${errors.parentName ? 'border-red-500' : 'border-gray-300'
+                            }`}
+                        />
+                        {errors.parentName && (
+                          <p className="mt-1 text-sm text-red-500">{errors.parentName}</p>
+                        )}
+                      </div>
 
-                {/* Email Address */}
-                <div>
+                      {/* Email Address */}
+                      <div>
                         <label className="block text-xs font-medium text-gray-700 mb-1">
-                    Email Address <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                    placeholder="Enter email address"
-                          className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
-                      errors.email ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                  />
-                  {errors.email && (
-                    <p className="mt-1 text-sm text-red-500">{errors.email}</p>
-                  )}
-                </div>
+                          Email Address <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          onBlur={handleBlur}
+                          placeholder="Enter email address"
+                          className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${errors.email ? 'border-red-500' : 'border-gray-300'
+                            }`}
+                        />
+                        {errors.email && (
+                          <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+                        )}
+                      </div>
 
                       {/* Mobile Number */}
-                <div>
+                      <div>
                         <label className="block text-xs font-medium text-gray-700 mb-1">
-                    Mobile Number<span className="text-red-500">*</span>
-                  </label>
+                          Mobile Number<span className="text-red-500">*</span>
+                        </label>
                         <div className="flex gap-2">
-                          <div className={`relative w-auto min-w-[75px] sm:min-w-[90px] border rounded-lg px-2 sm:px-2.5 py-2 flex-shrink-0 bg-white transition-all duration-200 ${
-                            errors.mobile ? 'border-red-500' : 'border-gray-300 hover:border-gray-400 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary'
-                          }`}>
+                          <div className={`relative w-auto min-w-[75px] sm:min-w-[90px] border rounded-lg px-2 sm:px-2.5 py-2 flex-shrink-0 bg-white transition-all duration-200 ${errors.mobile ? 'border-red-500' : 'border-gray-300 hover:border-gray-400 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary'
+                            }`}>
                             <div className="flex items-center justify-between gap-1 sm:gap-1.5">
                               <div className="flex items-center gap-1 sm:gap-1.5 min-w-0">
                                 <span className="text-base sm:text-lg leading-none flex-shrink-0">
@@ -895,19 +891,19 @@ const Hero = () => {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                               </svg>
                             </div>
-                        <select
-                          name="countryCode"
-                          value={formData.countryCode}
-                          onChange={handleInputChange}
-                          className="absolute inset-0 opacity-0 cursor-pointer w-full z-10"
+                            <select
+                              name="countryCode"
+                              value={formData.countryCode}
+                              onChange={handleInputChange}
+                              className="absolute inset-0 opacity-0 cursor-pointer w-full z-10"
                               aria-label="Country code"
-                        >
-                          {countryCodes.map((country) => (
-                            <option key={country.isoCode} value={country.code}>
-                              {country.flag} {country.code} {country.country}
-                            </option>
-                          ))}
-                        </select>
+                            >
+                              {countryCodes.map((country) => (
+                                <option key={country.isoCode} value={country.code}>
+                                  {country.flag} {country.code} {country.country}
+                                </option>
+                              ))}
+                            </select>
                           </div>
 
                           <input
@@ -936,9 +932,8 @@ const Hero = () => {
                             onBlur={handleBlur}
                             placeholder="Enter 10-digit mobile number"
                             maxLength={10}
-                            className={`flex-1 min-w-0 px-2 sm:px-3 py-2 text-xs sm:text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
-                              errors.mobile ? 'border-red-500' : 'border-gray-300'
-                            }`}
+                            className={`flex-1 min-w-0 px-2 sm:px-3 py-2 text-xs sm:text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${errors.mobile ? 'border-red-500' : 'border-gray-300'
+                              }`}
                           />
                         </div>
                         {errors.mobile && (
@@ -967,9 +962,8 @@ const Hero = () => {
                             }
                           }}
                           onBlur={handleBlur}
-                          className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
-                            errors.curriculum ? 'border-red-500' : 'border-gray-300'
-                          }`}
+                          className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${errors.curriculum ? 'border-red-500' : 'border-gray-300'
+                            }`}
                         >
                           <option value="">Select curriculum</option>
                           <option value="1">CBSE</option>
@@ -997,12 +991,11 @@ const Hero = () => {
                             }
                           }}
                           onBlur={handleBlur}
-                          className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
-                            errors.admissionType ? 'border-red-500' : 'border-gray-300'
-                          }`}
+                          className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${errors.admissionType ? 'border-red-500' : 'border-gray-300'
+                            }`}
                         >
                           <option value="">Select admission type</option>
-                          <option value="Days Scholar">Days Scholar</option>
+                          {/* <option value="Days Scholar">Days Scholar</option> */}
                           <option value="Hostel (Boys)">Hostel (Boys)</option>
                           <option value="Hostel (Girls)">Hostel (Girls)</option>
                         </select>
@@ -1022,9 +1015,8 @@ const Hero = () => {
                           onChange={handleInputChange}
                           onBlur={handleBlur}
                           disabled={!formData.curriculum || !formData.admissionType}
-                          className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
-                            errors.grades ? 'border-red-500' : 'border-gray-300'
-                          } ${!formData.curriculum || !formData.admissionType ? 'bg-gray-100 cursor-not-allowed' : ''}`}
+                          className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${errors.grades ? 'border-red-500' : 'border-gray-300'
+                            } ${!formData.curriculum || !formData.admissionType ? 'bg-gray-100 cursor-not-allowed' : ''}`}
                         >
                           <option value="">Select grade</option>
                           {availableGrades.map((grade) => (
@@ -1046,9 +1038,8 @@ const Hero = () => {
                       type="button"
                       onClick={handleBack}
                       disabled={currentStep === 1}
-                      className={`w-2/5 border border-gray-300 text-gray-700 py-3 rounded-lg font-semibold text-sm transition-colors flex items-center justify-center gap-2 ${
-                        currentStep === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-50 active:bg-gray-100'
-                      }`}
+                      className={`w-2/5 border border-gray-300 text-gray-700 py-3 rounded-lg font-semibold text-sm transition-colors flex items-center justify-center gap-2 ${currentStep === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-50 active:bg-gray-100'
+                        }`}
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -1071,9 +1062,8 @@ const Hero = () => {
                       <button
                         type="submit"
                         disabled={isSubmitting || !isFormValid()}
-                        className={`w-3/5 bg-primary text-white py-3 rounded-lg font-semibold transition-colors text-sm flex items-center justify-center gap-2 ${
-                          isSubmitting || !isFormValid() ? 'opacity-70 cursor-not-allowed' : 'hover:bg-opacity-90 cursor-pointer'
-                        }`}
+                        className={`w-3/5 bg-primary text-white py-3 rounded-lg font-semibold transition-colors text-sm flex items-center justify-center gap-2 ${isSubmitting || !isFormValid() ? 'opacity-70 cursor-not-allowed' : 'hover:bg-opacity-90 cursor-pointer'
+                          }`}
                       >
                         {isSubmitting ? 'Submitting...' : 'Submit Enquiry'}
                         {!isSubmitting && (
@@ -1094,11 +1084,10 @@ const Hero = () => {
       {/* Toast Notification */}
       {toast.show && (
         <div
-          className={`fixed top-4 right-4 z-50 flex items-center gap-3 px-6 py-4 rounded-lg shadow-lg ${
-            toast.type === 'success'
-              ? 'bg-green-50 border border-green-200 text-green-800'
-              : 'bg-red-50 border border-red-200 text-red-800'
-          }`}
+          className={`fixed top-4 right-4 z-50 flex items-center gap-3 px-6 py-4 rounded-lg shadow-lg ${toast.type === 'success'
+            ? 'bg-green-50 border border-green-200 text-green-800'
+            : 'bg-red-50 border border-red-200 text-red-800'
+            }`}
           style={{
             minWidth: '300px',
             maxWidth: '400px',
@@ -1106,9 +1095,8 @@ const Hero = () => {
           }}
         >
           <div
-            className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${
-              toast.type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
-            }`}
+            className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold ${toast.type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+              }`}
           >
             {toast.type === 'success' ? '✓' : '✕'}
           </div>
