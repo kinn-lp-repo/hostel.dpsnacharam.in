@@ -19,7 +19,7 @@ function App() {
   }, [])
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       <Preloader />
       <Header />
       <main>

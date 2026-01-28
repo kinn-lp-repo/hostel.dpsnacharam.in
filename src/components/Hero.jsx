@@ -1,9 +1,18 @@
-﻿import { useState, useEffect } from 'react'
+﻿import { useState, useEffect, useRef } from 'react'
 import { getCountries, getCountryCallingCode } from 'libphonenumber-js'
 import { getName } from 'country-list'
 import { trackFormSubmit } from '../utils/gtmEvents'
 
 const Hero = () => {
+  const videoRef = useRef(null)
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true
+      videoRef.current.play().catch(e => console.log('Autoplay prevented:', e))
+    }
+  }, [])
+
   const allowedEmailDomains = [
     'gmail.com',
     'yahoo.com',
@@ -759,13 +768,17 @@ const Hero = () => {
             {/* Video */}
             <div className="mb-6 rounded-xl overflow-visible relative shadow-primary-rotated shadow-lg flex-shrink-0" style={{ paddingBottom: '56.25%', height: 0, boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)' }}>
               <div className="absolute inset-0 rounded-lg overflow-hidden">
-                <iframe
-                  src="https://player.vimeo.com/video/858580926?autoplay=1&muted=1&controls=0&loop=1&h=56d13f71fe&badge=0&autopause=0&player_id=0&app_id=58479"
-                  frameBorder="0"
-                  allow="autoplay; fullscreen; picture-in-picture"
-                  allowFullScreen
-                  style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-                  title="Dps Webslide New"
+                <video
+                  ref={videoRef}
+                  src="https://kinn-s3-bckt-6696376.s3.ap-south-1.amazonaws.com/dps-nacharam/DPS+Hostel+Boys+%26+Girl.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  defaultMuted
+                  controls={false}
+                  preload="auto"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
               </div>
             </div>
