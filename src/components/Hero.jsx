@@ -770,7 +770,7 @@ const Hero = () => {
               <div className="absolute inset-0 rounded-lg overflow-hidden">
                 <video
                   ref={videoRef}
-                  src="https://kinn-s3-bckt-6696376.s3.ap-south-1.amazonaws.com/dps-nacharam/DPS+Hostel+Boys+%26+Girl.mp4"
+                  src="https://kinn-s3-bckt-6696376.s3.ap-south-1.amazonaws.com/dps-nacharam/dps-nac-common.mp4"
                   autoPlay
                   loop
                   muted
