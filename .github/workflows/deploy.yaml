@@ -4,31 +4,57 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
+env:
+  BUILD_DIR: dist
+  REMOTE_DIR: /var/www/hostel.dpsnacharam.in
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Deploy files via SSH
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hostel-dpsnacharam-build
+          path: ${{ env.BUILD_DIR }}
+
+      - name: Ensure remote directory exists
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          port: 22
+          port: ${{ secrets.SSH_PORT || 22 }}
           script: |
-            rm -rf /var/www/hostel.dpsnacharam.in/*
-            mkdir -p /var/www/hostel.dpsnacharam.in
+            if [ ! -d "${{ env.REMOTE_DIR }}" ]; then
+              mkdir -p "${{ env.REMOTE_DIR }}"
+            fi
 
-      - name: Copy files to server
+      - name: Copy build files to server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: "./*"
-          target: "/var/www/hostel.dpsnacharam.in/"
+          port: ${{ secrets.SSH_PORT || 22 }}
+          source: "${{ env.BUILD_DIR }}"
+          target: "${{ env.REMOTE_DIR }}"
+          strip_components: 1
