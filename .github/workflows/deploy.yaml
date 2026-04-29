@@ -8,7 +8,7 @@ on:
 
 env:
   BUILD_DIR: dist
-  REMOTE_DIR: /var/www/hostel.dpsnacharam.in
+  REMOTE_DIR: /var/www/hostel.dpsnacharam.in/v0
 
 jobs:
   build-and-deploy:
